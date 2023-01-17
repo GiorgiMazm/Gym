@@ -1,0 +1,92 @@
+<template>
+  <v-card class="mt-4" width="400px">
+    <v-card-item>
+      <v-card-title v-if="!editMode" class="text-h5" ref="day"
+        >Day {{ getCurrentDay.order }}
+      </v-card-title>
+
+      <v-text-field
+        v-if="editMode"
+        v-model="getCurrentDay.order"
+        label="Training day"
+      ></v-text-field>
+
+      <v-card-subtitle>
+        <v-icon
+          icon="mdi-dumbbell"
+          size="18"
+          color="error"
+          class="mr-1 pb-1"
+        ></v-icon>
+
+        Trainings information
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text class="py-0">
+      <v-row align="center" hide-gutters no-gutters>
+        <v-col v-if="!editMode" class="text-h2" cols="6">
+          {{ getCurrentDay.type }}
+        </v-col>
+        <v-text-field
+          v-if="editMode"
+          v-model="getCurrentDay.type"
+          label="Muscle group"
+        ></v-text-field>
+      </v-row>
+    </v-card-text>
+
+    <GymExercise
+      v-for="(exercise, index) in getCurrentDay.exercises"
+      :key="index"
+      :exerciseIndex="index"
+      :dayIndex="dayIndex"
+      :editMode="editMode"
+    ></GymExercise>
+    <v-divider></v-divider>
+
+    <v-card-actions>
+      <v-btn v-if="!editMode" @click="changeEditMode"> Edit Day </v-btn>
+      <v-btn v-if="editMode" @click="changeEditMode"> Save Day </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
+
+<script>
+import GymExercise from "./GymExercise.vue";
+import { useGymStore } from "@/stores/GymStore";
+import { mapState } from "pinia";
+export default {
+  name: "TrainingDay",
+  props: {
+    dayIndex: Number,
+  },
+  components: {
+    GymExercise,
+  },
+  data() {
+    return {
+      editMode: false,
+    };
+  },
+  computed: {
+    ...mapState(useGymStore, ["trainingDays"]),
+    getCurrentDay() {
+      return this.trainingDays[this.dayIndex];
+    },
+  },
+  methods: {
+    changeEditMode() {
+      this.editMode = !this.editMode;
+    },
+  },
+  mounted() {
+    console.log("app was mounted");
+  },
+  beforeUnmount() {
+    console.log(this.$refs.day);
+  },
+};
+</script>
+
+<style scoped></style>
