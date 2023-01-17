@@ -27,45 +27,85 @@
           >
             New exercise
           </button>
-          <v-form
-            @submit.prevent="
+          <Form
+            name="newExerciseForm"
+            @submit="
               addExercise(muscleGroup, exercisesName, difficulty, description);
               createNewToggle();
               clearCreateInputs();
             "
           >
-            <v-text-field
-              data-test="muscle-group"
-              class="w-25"
+            <Field
               v-if="createNew"
-              label="Muscle Group"
-              v-model="muscleGroup"
-            ></v-text-field>
+              name="muscleGroup"
+              :rules="exist"
+              v-slot="{ field, errors }"
+            >
+              <v-text-field
+                data-test="muscle-group"
+                v-bind="field"
+                class="w-25"
+                v-if="createNew"
+                name="muscleGroup"
+                label="Muscle Group"
+                v-model="muscleGroup"
+                :error-messages="errors"
+              ></v-text-field>
+            </Field>
 
-            <v-text-field
-              class="w-25"
+            <Field
               v-if="createNew"
-              label="Exercise's Name"
-              v-model="exercisesName"
-              data-test="exercise-name"
-            ></v-text-field>
+              name="exercisesName"
+              :rules="exist"
+              v-slot="{ field, errors }"
+            >
+              <v-text-field
+                data-test="exercises-name"
+                v-bind="field"
+                class="w-25"
+                v-if="createNew"
+                name="exercisesName"
+                label="Exercise's Name"
+                v-model="exercisesName"
+                :error-messages="errors"
+              ></v-text-field>
+            </Field>
 
-            <v-select
-              class="w-25"
+            <Field
               v-if="createNew"
-              v-model="difficulty"
-              label="Difficulty"
-              data-test="difficulty"
-              :items="['Easy', 'Medium', 'Hard']"
-            ></v-select>
+              name="difficulty"
+              :rules="exist"
+              v-slot="{ field, errors }"
+            >
+              <v-select
+                data-test="difficulty"
+                v-bind="field"
+                class="w-25"
+                v-if="createNew"
+                name="difficulty"
+                label="Difficulty"
+                v-model="difficulty"
+                :error-messages="errors"
+                :items="['Easy', 'Medium', 'Hard']"
+              ></v-select>
+            </Field>
 
-            <v-text-field
-              class="w-25"
+            <Field
               v-if="createNew"
-              label="Description"
-              v-model="description"
-              required
-            ></v-text-field>
+              name="username"
+              :rules="exist"
+              v-slot="{ field, errors }"
+            >
+              <v-text-field
+                v-bind="field"
+                class="w-25"
+                v-if="createNew"
+                name="username"
+                label="Description"
+                v-model="description"
+                :error-messages="errors"
+              ></v-text-field>
+            </Field>
 
             <button type="submit" v-if="createNew" data-test="save-button">
               Save
@@ -82,7 +122,7 @@
             >
               Cancel
             </button>
-          </v-form>
+          </Form>
         </v-main>
       </v-layout>
     </v-card>
@@ -94,12 +134,16 @@ import AppHeader from "@/components/AppHeader.vue";
 import { useCatalogStore } from "@/stores/CatalogStore";
 import { mapActions, mapState } from "pinia";
 import CatalogCard from "@/components/CatalogCard.vue";
+import { Field, Form, ErrorMessage } from "vee-validate";
 
 export default {
   name: "ExercisesCatalogPage",
   components: {
     AppHeader,
     CatalogCard,
+    Form,
+    Field,
+    ErrorMessage,
   },
 
   data() {
@@ -124,8 +168,11 @@ export default {
       this.createNew = !this.createNew;
     },
 
-    lol(event) {
-      console.log(event);
+    exist(value) {
+      if (value) {
+        return true;
+      }
+      return "field is required";
     },
 
     clearCreateInputs() {
