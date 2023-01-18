@@ -29,23 +29,18 @@
           </button>
           <Form
             name="newExerciseForm"
+            v-if="createNew"
             @submit="
               addExercise(muscleGroup, exercisesName, difficulty, description);
               createNewToggle();
               clearCreateInputs();
             "
           >
-            <Field
-              v-if="createNew"
-              name="muscleGroup"
-              :rules="exist"
-              v-slot="{ field, errors }"
-            >
+            <Field name="muscleGroup" :rules="exist" v-slot="{ field, errors }">
               <v-text-field
                 data-test="muscle-group"
                 v-bind="field"
                 class="w-25"
-                v-if="createNew"
                 name="muscleGroup"
                 label="Muscle Group"
                 v-model="muscleGroup"
@@ -54,7 +49,6 @@
             </Field>
 
             <Field
-              v-if="createNew"
               name="exercisesName"
               :rules="exist"
               v-slot="{ field, errors }"
@@ -63,7 +57,6 @@
                 data-test="exercises-name"
                 v-bind="field"
                 class="w-25"
-                v-if="createNew"
                 name="exercisesName"
                 label="Exercise's Name"
                 v-model="exercisesName"
@@ -71,17 +64,11 @@
               ></v-text-field>
             </Field>
 
-            <Field
-              v-if="createNew"
-              name="difficulty"
-              :rules="exist"
-              v-slot="{ field, errors }"
-            >
+            <Field name="difficulty" :rules="exist" v-slot="{ field, errors }">
               <v-select
                 data-test="difficulty"
                 v-bind="field"
                 class="w-25"
-                v-if="createNew"
                 name="difficulty"
                 label="Difficulty"
                 v-model="difficulty"
@@ -90,16 +77,10 @@
               ></v-select>
             </Field>
 
-            <Field
-              v-if="createNew"
-              name="username"
-              :rules="exist"
-              v-slot="{ field, errors }"
-            >
+            <Field name="username" :rules="exist" v-slot="{ field, errors }">
               <v-text-field
                 v-bind="field"
                 class="w-25"
-                v-if="createNew"
                 name="username"
                 label="Description"
                 v-model="description"
@@ -107,13 +88,10 @@
               ></v-text-field>
             </Field>
 
-            <button type="submit" v-if="createNew" data-test="save-button">
-              Save
-            </button>
+            <button type="submit" data-test="save-button">Save</button>
 
             <button
               class="ma-2"
-              v-if="createNew"
               @click="
                 createNewToggle();
                 clearCreateInputs();
@@ -134,7 +112,7 @@ import AppHeader from "@/components/AppHeader.vue";
 import { useCatalogStore } from "@/stores/CatalogStore";
 import { mapActions, mapState } from "pinia";
 import CatalogCard from "@/components/CatalogCard.vue";
-import { Field, Form, ErrorMessage } from "vee-validate";
+import { Field, Form } from "vee-validate";
 
 export default {
   name: "ExercisesCatalogPage",
@@ -143,7 +121,6 @@ export default {
     CatalogCard,
     Form,
     Field,
-    ErrorMessage,
   },
 
   data() {
@@ -172,7 +149,7 @@ export default {
       if (value) {
         return true;
       }
-      return "field is required";
+      return "Field is required";
     },
 
     clearCreateInputs() {
