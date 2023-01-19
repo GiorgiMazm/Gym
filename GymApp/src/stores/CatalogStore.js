@@ -26,8 +26,9 @@ export const useCatalogStore = defineStore("CatalogStore", {
 
     async getAllExercises() {
       try {
-        const data = await axios.get("http://localhost:8080/allExercises");
-        this.exercises = data.data;
+        this.exercises = (
+          await axios.get("http://localhost:8080/allExercises")
+        ).data;
       } catch (error) {
         alert(error);
         console.log(error);

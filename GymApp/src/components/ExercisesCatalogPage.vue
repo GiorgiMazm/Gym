@@ -139,6 +139,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(useCatalogStore, ["getAllExercises"]),
     ...mapActions(useCatalogStore, ["addExercise"]),
     ...mapActions(useCatalogStore, ["editFilter"]),
     createNewToggle() {
@@ -158,6 +159,9 @@ export default {
       this.difficulty = "";
       this.description = "";
     },
+  },
+  created() {
+    this.getAllExercises();
   },
 };
 </script>
