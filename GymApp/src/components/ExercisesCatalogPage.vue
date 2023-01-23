@@ -11,7 +11,7 @@
           <button class="ma-2" @click="editFilter('Hard')">Hard</button>
           <button class="ma-2" @click="editFilter('All')">All</button>
 
-          <div class="d-flex justify-space-around flex-wrap">
+          <div class="d-flex justify-space-around flex-wrap mb-4 all-exercises">
             <CatalogCard
               :exerciseIndex="index"
               v-for="(exercise, index) in filteredExercises"
@@ -29,6 +29,7 @@
           </button>
           <Form
             name="newExerciseForm"
+            data-test="new-exercise-form"
             v-if="createNew"
             @submit="
               addExercise(muscleGroup, exercisesName, difficulty, description);
@@ -54,7 +55,7 @@
               v-slot="{ field, errors }"
             >
               <v-text-field
-                data-test="exercises-name"
+                data-test="exercise-name"
                 v-bind="field"
                 class="w-25"
                 name="exercisesName"
@@ -79,6 +80,7 @@
 
             <Field name="username" :rules="exist" v-slot="{ field, errors }">
               <v-text-field
+                data-test="description"
                 v-bind="field"
                 class="w-25"
                 name="username"
@@ -150,7 +152,7 @@ export default {
       if (value) {
         return true;
       }
-      return "Field is required";
+      return "Field is required!";
     },
 
     clearCreateInputs() {
