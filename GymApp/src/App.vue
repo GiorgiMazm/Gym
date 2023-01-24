@@ -3,9 +3,6 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
-import { useCatalogStore } from "@/stores/CatalogStore";
-
 export default {
   name: "App",
 };
