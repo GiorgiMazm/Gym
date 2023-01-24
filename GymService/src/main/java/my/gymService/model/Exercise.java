@@ -1,4 +1,4 @@
-package my.gymService;
+package my.gymService.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

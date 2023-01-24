@@ -1,6 +1,8 @@
-package my.gymService;
+package my.gymService.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import my.gymService.repository.ExerciseRepository;
+import my.gymService.model.Exercise;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,25 +10,12 @@ import java.util.List;
 @RestController
 @RequestMapping
 @Slf4j
-public class Controller {
+public class ExerciseController {
 
     ExerciseRepository exerciseRepository;
 
-    public Controller(ExerciseRepository exerciseRepository) {
+    public ExerciseController(ExerciseRepository exerciseRepository) {
         this.exerciseRepository = exerciseRepository;
-    }
-
-    @GetMapping(path = "/")
-    public String home() {
-        return "Welcome to Fitness Backend!"
-                + "<br>"
-                + "to get all Exercises:  /allExercises"
-                + "<br>"
-                + "to post new Exercise: /newExercise"
-                + "<br>"
-                + "to delete an Exercise: /delete{id}"
-                + "<br>"
-                + "to put Exercise: /edit{id]";
     }
 
     @GetMapping(path = "allExercises")
