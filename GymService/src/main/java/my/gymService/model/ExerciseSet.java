@@ -1,5 +1,6 @@
 package my.gymService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,8 @@ public class ExerciseSet {
 
     @jakarta.persistence.Id
     @Id
+    @JsonIgnore
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
@@ -19,6 +22,7 @@ public class ExerciseSet {
     @Column(name = "repetition", nullable = false)
     private int repetition;
 
+    @JsonIgnore
     @Column(name = "day_exercise_id", nullable = false, updatable = false)
     private Long dayExerciseId;
 

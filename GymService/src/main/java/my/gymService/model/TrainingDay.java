@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity(name = "training_day")
 @Data
@@ -19,6 +20,9 @@ public class TrainingDay {
     @Column(name = "id", updatable = false)
     private Long id;
 
+    @OneToMany(targetEntity = DayExercise.class)
+    @JoinColumn(name = "day_id", referencedColumnName = "id")
+    private Set<DayExercise> exercises;
 
     @Column(name = "type", nullable = false)
     private String type;
@@ -32,6 +36,5 @@ public class TrainingDay {
 
     public TrainingDay(String type) {
         this.type = type;
-
     }
 }
