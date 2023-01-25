@@ -6,28 +6,48 @@ describe("Can't create a new exercise if", () => {
   });
 
   it("Name is empty", () => {
-    exerciseFactory.create("", "chest777", "Hard", "Do bench press");
+    exerciseFactory.create({
+      name: "",
+      muscle: "chest777",
+      description: "do it!!",
+      difficulty: "Hard",
+    });
     cy.get(".all-exercises").should("not.contain.text", "chest777");
     cy.get(".v-messages__message").should("have.text", "Field is required!");
   });
 
   it("Muscle is empty", () => {
     const exerciseName = "Chest4464464";
-    exerciseFactory.create(exerciseName, "", "Hard", "Do bench press");
+    exerciseFactory.create({
+      name: exerciseName,
+      muscle: "",
+      description: "do it!!",
+      difficulty: "Hard",
+    });
     cy.get(".v-messages__message").should("have.text", "Field is required!");
     cy.get(".all-exercises").should("not.contain.text", exerciseName);
   });
 
   it("Difficulty is empty", () => {
     const exerciseName = "Chest446146464";
-    exerciseFactory.create(exerciseName, "chest", "", "Do bench press");
+    exerciseFactory.create({
+      name: exerciseName,
+      muscle: "chest",
+      description: "do it!!",
+      difficulty: "",
+    });
     cy.get(".v-messages__message").should("have.text", "Field is required!");
     cy.get(".all-exercises").should("not.contain.text", exerciseName);
   });
 
   it("Description is empty", () => {
     const exerciseName = "Chest446436464";
-    exerciseFactory.create(exerciseName, "chest", "Easy", "");
+    exerciseFactory.create({
+      name: exerciseName,
+      muscle: "chest",
+      description: "",
+      difficulty: "Hard",
+    });
     cy.get(".v-messages__message").should("have.text", "Field is required!");
     cy.get(".all-exercises").should("not.contain.text", exerciseName);
   });
@@ -40,12 +60,12 @@ describe("Can create a new exercise if", () => {
 
   it("All field are correct", () => {
     const exerciseName = "Biceps Curls";
-    exerciseFactory.create(
-      exerciseName,
-      "Biceps",
-      "Easy",
-      "Do some curls for ur biceps"
-    );
+    exerciseFactory.create({
+      name: exerciseName,
+      muscle: "Biceps",
+      difficulty: "Easy",
+      description: "Do some curls for ur biceps",
+    });
     cy.get("div").should("not.contain.text", "Field is required!");
     cy.get(".all-exercises").should("contain.text", exerciseName);
 
