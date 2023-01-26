@@ -23,21 +23,15 @@ public class DayExercise {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @JsonIgnore
-    @Column(name = "day_id", nullable = false, updatable = false)
-    private Long dayId;
 
-
-    @OneToMany(targetEntity = ExerciseSet.class)
+    @OneToMany(targetEntity = ExerciseSet.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "day_exercise_id", referencedColumnName = "id")
     private Set<ExerciseSet> sets;
 
     public DayExercise() {
     }
 
-    public DayExercise(String name, Long dayId) {
+    public DayExercise(String name) {
         this.name = name;
-        this.dayId = dayId;
-
     }
 }

@@ -20,7 +20,7 @@ public class TrainingDay {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @OneToMany(targetEntity = DayExercise.class)
+    @OneToMany(targetEntity = DayExercise.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "day_id", referencedColumnName = "id")
     private Set<DayExercise> exercises;
 

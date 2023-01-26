@@ -1,19 +1,15 @@
 export default {
-  create: function (exercise) {
+  create: function ({ name, muscle, description, difficulty }) {
     cy.get("[data-test='create-button']").click();
-    if (exercise.name)
-      cy.get("[data-test='exercise-name']").find("input").type(exercise.name);
-    if (exercise.muscle)
-      cy.get("[data-test='muscle-group']").find("input").type(exercise.muscle);
+    if (name) cy.get("[data-test='exercise-name']").find("input").type(name);
+    if (muscle) cy.get("[data-test='muscle-group']").find("input").type(muscle);
     cy.get("[data-test='difficulty']").click();
-    if (exercise.difficulty)
+    if (difficulty)
       cy.get(".v-overlay-container").within(() => {
-        cy.get("div").contains(exercise.difficulty).click();
+        cy.get("div").contains(difficulty).click();
       });
-    if (exercise.description)
-      cy.get("[data-test='description']")
-        .find("input")
-        .type(exercise.description);
+    if (description)
+      cy.get("[data-test='description']").find("input").type(description);
     cy.get("[data-test='save-button']").click();
   },
 

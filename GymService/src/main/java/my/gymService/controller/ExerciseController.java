@@ -1,8 +1,8 @@
 package my.gymService.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import my.gymService.repository.ExerciseRepository;
 import my.gymService.model.Exercise;
+import my.gymService.repository.ExerciseRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +25,7 @@ public class ExerciseController {
 
     @PostMapping("newExercise")
     public void registerNewExercise(@RequestBody Exercise exercise) {
+        System.out.println(exercise);
         exerciseRepository.save(exercise);
     }
 

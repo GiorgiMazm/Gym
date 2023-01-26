@@ -2,10 +2,9 @@ package my.gymService.controller;
 
 import my.gymService.model.TrainingDay;
 import my.gymService.repository.TrainingDayRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,5 +19,11 @@ public class TrainingDayController {
     @GetMapping(path = "/allTrainingDays")
     public List<TrainingDay> home() {
         return trainingDayRepository.findAll();
+    }
+
+    @PostMapping("newTrainingDay")
+    public void registerNewTrainingDay(@RequestBody TrainingDay trainingDay) {
+        trainingDay.setCreatedAt(LocalDate.now());
+        trainingDayRepository.save(trainingDay);
     }
 }

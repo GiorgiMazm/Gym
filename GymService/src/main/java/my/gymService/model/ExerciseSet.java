@@ -14,7 +14,6 @@ public class ExerciseSet {
     @jakarta.persistence.Id
     @Id
     @JsonIgnore
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
@@ -22,15 +21,16 @@ public class ExerciseSet {
     @Column(name = "repetition", nullable = false)
     private int repetition;
 
-    @JsonIgnore
-    @Column(name = "day_exercise_id", nullable = false, updatable = false)
-    private Long dayExerciseId;
+    @Column(name = "weight", nullable = false)
+    private int weight;
+
 
     public ExerciseSet() {
     }
 
-    public ExerciseSet(int repetition, Long dayExerciseId) {
+    public ExerciseSet(int repetition, int weight) {
         this.repetition = repetition;
-        this.dayExerciseId = dayExerciseId;
+        this.weight = weight;
+
     }
 }

@@ -6,7 +6,7 @@ CREATE TABLE training_day
 );
 
 INSERT INTO training_day (type, created_at)
-VALUES ('Pull', current_date),
+VALUES ('Upper', current_date),
        ('Legs', current_date);
 
 
@@ -19,16 +19,17 @@ CREATE TABLE day_exercise
 
 INSERT INTO day_exercise (name, day_id)
 VALUES ('Squat', 1),
-       ('Pull up', 1);
+       ('Bench press up', 1);
 
 
 CREATE TABLE exercise_set
 (
     id              serial not null primary key,
     repetition      int    not null,
+    weight          int    not null,
     day_exercise_id int    not null references day_exercise (id)
 );
 
-INSERT INTO exercise_set (repetition, day_exercise_id)
-VALUES (7, 1),
-       (8, 1);
+INSERT INTO exercise_set (repetition, weight, day_exercise_id)
+VALUES (7, 100, 1),
+       (8, 110, 1);

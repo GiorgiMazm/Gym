@@ -7,7 +7,6 @@ describe("Can't create a new exercise if", () => {
 
   it("Name is empty", () => {
     exerciseFactory.create({
-      name: "",
       muscle: "chest777",
       description: "do it!!",
       difficulty: "Hard",
@@ -20,7 +19,6 @@ describe("Can't create a new exercise if", () => {
     const exerciseName = "Chest4464464";
     exerciseFactory.create({
       name: exerciseName,
-      muscle: "",
       description: "do it!!",
       difficulty: "Hard",
     });
@@ -34,7 +32,6 @@ describe("Can't create a new exercise if", () => {
       name: exerciseName,
       muscle: "chest",
       description: "do it!!",
-      difficulty: "",
     });
     cy.get(".v-messages__message").should("have.text", "Field is required!");
     cy.get(".all-exercises").should("not.contain.text", exerciseName);
@@ -45,7 +42,6 @@ describe("Can't create a new exercise if", () => {
     exerciseFactory.create({
       name: exerciseName,
       muscle: "chest",
-      description: "",
       difficulty: "Hard",
     });
     cy.get(".v-messages__message").should("have.text", "Field is required!");
