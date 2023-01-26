@@ -1,37 +1,60 @@
 package my.gymService.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.Data;
-import org.springframework.data.annotation.Id;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "day_exercise")
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import lombok.Data;
+import lombok.ToString;
+
 @Data
+@Entity(name = "day_exercise")
 @EntityListeners(AuditingEntityListener.class)
 public class DayExercise {
 
-    @jakarta.persistence.Id
-    @Id
-    @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private Long id;
+  @Id
+  @JsonIgnore
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", updatable = false)
+  private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+  @Column(name = "name", nullable = false)
+  private String name;
 
+  @ToString.Exclude
+  @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "training_day_id", nullable = false)
+  private TrainingDay trainingDay;
 
-    @OneToMany(targetEntity = ExerciseSet.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "day_exercise_id", referencedColumnName = "id")
-    private Set<ExerciseSet> sets;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "dayExercise")
+  private List<ExerciseSet> sets = new ArrayList<>();
 
-    public DayExercise() {
+  public DayExercise() {}
+
+  public DayExercise(String name) {
+    this.name = name;
+  }
+
+  @PrePersist
+  void assigntToSets() {
+    if (sets == null) {
+      return;
     }
-
-    public DayExercise(String name) {
-        this.name = name;
-    }
+    sets.forEach(e -> e.setDayExercise(this));
+  }
 }

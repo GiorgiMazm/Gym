@@ -1,40 +1,58 @@
 package my.gymService.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
-import java.util.Set;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import lombok.Data;
 
-@Entity(name = "training_day")
 @Data
+@Entity(name = "training_day")
 @EntityListeners(AuditingEntityListener.class)
 public class TrainingDay {
 
-    @jakarta.persistence.Id
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", updatable = false)
+  private Long id;
 
-    @OneToMany(targetEntity = DayExercise.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "training_day_id", referencedColumnName = "id")
-    private Set<DayExercise> exercises;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "trainingDay")
+  private List<DayExercise> exercises = new ArrayList<>();
 
-    @Column(name = "type", nullable = false)
-    private String type;
+  @Column(name = "type", nullable = false)
+  private String type;
 
-    @CreatedDate
-    @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
+  @CreatedDate
+  @Column(name = "created_at", nullable = false)
+  private LocalDate createdAt;
 
-    public TrainingDay() {
+  public TrainingDay() {}
+
+  public TrainingDay(String type) {
+    this.type = type;
+  }
+
+  public void addExercise(DayExercise set) {
+    exercises.add(set);
+  }
+
+  @PrePersist
+  void assigntToExercises() {
+    if (exercises == null) {
+      return;
     }
-
-    public TrainingDay(String type) {
-        this.type = type;
-    }
+    exercises.forEach(e -> e.setTrainingDay(this));
+  }
 }
