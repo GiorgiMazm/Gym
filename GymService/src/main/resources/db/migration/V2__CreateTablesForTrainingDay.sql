@@ -12,12 +12,12 @@ VALUES ('Upper', current_date),
 
 CREATE TABLE day_exercise
 (
-    id     serial not null primary key,
-    name   text   not null,
-    day_id int    not null references training_day (id)
+    id              serial not null primary key,
+    name            text   not null,
+    training_day_id int    not null references training_day (id)
 );
 
-INSERT INTO day_exercise (name, day_id)
+INSERT INTO day_exercise (name, training_day_id)
 VALUES ('Squat', 1),
        ('Bench press up', 1);
 

@@ -26,4 +26,9 @@ public class TrainingDayController {
         trainingDay.setCreatedAt(LocalDate.now());
         trainingDayRepository.save(trainingDay);
     }
+
+    @DeleteMapping(path = "delete{TrainingDayId}")
+    public void deleteTrainingDay(@PathVariable("TrainingDayId") Long trainingDayId) {
+        trainingDayRepository.deleteById(trainingDayId);
+    }
 }
