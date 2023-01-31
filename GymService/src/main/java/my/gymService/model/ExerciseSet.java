@@ -35,7 +35,7 @@ public class ExerciseSet {
   @ToString.Exclude
   @JsonIgnore
   @ManyToOne
-  @JoinColumn(name = "day_exercise_id", nullable = false)
+  @JoinColumn(name = "day_exercise_id")
   private DayExercise dayExercise;
 
   public ExerciseSet() {}
