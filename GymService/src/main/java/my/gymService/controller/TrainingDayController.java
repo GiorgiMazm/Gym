@@ -27,8 +27,20 @@ public class TrainingDayController {
         trainingDayRepository.save(trainingDay);
     }
 
-    @DeleteMapping(path = "delete{TrainingDayId}")
+    @DeleteMapping(path = "deleteDay/{TrainingDayId}")
     public void deleteTrainingDay(@PathVariable("TrainingDayId") Long trainingDayId) {
         trainingDayRepository.deleteById(trainingDayId);
+    }
+
+    @PutMapping(path = "editTrainingDay/{trainingDayId}")
+    public void updateTrainingDay(@PathVariable(value = "trainingDayId") Long trainingDayId, @RequestBody TrainingDay newTrainingDay) {
+        TrainingDay trainingDay = trainingDayRepository.findById(trainingDayId).get();
+        System.out.println(trainingDay);
+        System.out.println(newTrainingDay);
+
+        trainingDay.setType(newTrainingDay.getType());
+        trainingDay.setCreatedAt(LocalDate.now());
+        trainingDay.setExercises(newTrainingDay.getExercises());
+        trainingDayRepository.save(trainingDay);
     }
 }

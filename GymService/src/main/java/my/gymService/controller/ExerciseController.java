@@ -29,12 +29,12 @@ public class ExerciseController {
         exerciseRepository.save(exercise);
     }
 
-    @DeleteMapping(path = "delete{exerciseId}")
+    @DeleteMapping(path = "deleteExercise/{exerciseId}")
     public void deleteExercise(@PathVariable("exerciseId") Long exerciseId) {
         exerciseRepository.deleteById(exerciseId);
     }
 
-    @PutMapping(path = "edit{exerciseId}")
+    @PutMapping(path = "editExercise/{exerciseId}")
     public void updateExercise(@PathVariable(value = "exerciseId") Long exerciseId, @RequestBody Exercise newExercise) {
         Exercise exercise = exerciseRepository.findById(exerciseId).get();
         log.info(String.valueOf(exercise));

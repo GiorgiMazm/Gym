@@ -1,11 +1,10 @@
 package my.gymService.repository;
 
-import java.util.List;
-
+import my.gymService.model.TrainingDay;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import my.gymService.model.TrainingDay;
+import java.util.List;
 
 public interface TrainingDayRepository extends JpaRepository<TrainingDay, Long> {
-  List<TrainingDay> findByType(String type);
+    List<TrainingDay> findByType(String type);
 }

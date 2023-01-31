@@ -12,7 +12,7 @@ export const useCatalogStore = defineStore("CatalogStore", {
   actions: {
     async deleteExercise(id) {
       try {
-        await axios.delete("http://localhost:8080/delete" + id);
+        await axios.delete("http://localhost:8080/deleteExercise/" + id);
         await this.getAllExercises();
       } catch (error) {
         alert(error);
@@ -58,7 +58,7 @@ export const useCatalogStore = defineStore("CatalogStore", {
         difficulty: difficulty,
       };
       try {
-        await axios.put("http://localhost:8080/edit" + id, exercise);
+        await axios.put("http://localhost:8080/editExercise/" + id, exercise);
         await this.getAllExercises();
       } catch (error) {
         alert(error);
