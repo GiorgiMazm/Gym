@@ -14,7 +14,7 @@ CREATE TABLE day_exercise
 (
     id              serial not null primary key,
     name            text   not null,
-    training_day_id int    not null references training_day (id)
+    training_day_id int    references training_day (id) on delete cascade
 );
 
 INSERT INTO day_exercise (name, training_day_id)
@@ -27,7 +27,7 @@ CREATE TABLE exercise_set
     id              serial not null primary key,
     repetition      int    not null,
     weight          int    not null,
-    day_exercise_id int    not null references day_exercise (id)
+    day_exercise_id int    references day_exercise (id) on delete cascade
 );
 
 INSERT INTO exercise_set (repetition, weight, day_exercise_id)
