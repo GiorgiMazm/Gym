@@ -27,8 +27,9 @@
             name="newTrainingDayForm"
             data-test="new-training-day-form"
             v-if="createNew"
+            class="ml-4 mt-4"
           >
-            <Field name="muscleGroup" v-slot="{ field, errors }">
+            <Field name="trainingDayType" v-slot="{ field, errors }">
               <v-text-field
                 data-test="training-day-type"
                 v-bind="field"
@@ -40,7 +41,66 @@
               ></v-text-field>
             </Field>
 
-             <button class="d-block">Add exercise</button>
+            <div
+              class="exercise-wrapper w-25 pt-4 pl-4 pr-4 mb-3"
+              v-for="(exercise, index) in exerciseArray"
+              v-bind:key="index"
+            >
+              <div>Exercise {{ index + 1 }}</div>
+              <Field
+                v-bind:key="index"
+                :name="`exercise-${index}`"
+                v-slot="{ field, errors }"
+              >
+                <v-text-field
+                  v-bind="field"
+                  label="Exercise name"
+                  v-model="exercise.name"
+                  :error-messages="errors"
+                ></v-text-field>
+              </Field>
+
+              <div
+                class="exercise-set-wrapper"
+                v-for="(set, setIndex) in exerciseArray[index].sets"
+                v-bind:key="setIndex"
+              >
+                <Field
+                  :name="`exercise-${index}-set-${setIndex}-rep`"
+                  v-slot="{ field, errors }"
+                >
+                  <v-text-field
+                    v-bind="field"
+                    label="Set repetition"
+                    v-model="set.repetition"
+                    :error-messages="errors"
+                  ></v-text-field>
+                </Field>
+
+                <Field
+                  :name="`exercise-${index}-set-${setIndex}-weight`"
+                  v-slot="{ field, errors }"
+                >
+                  <v-text-field
+                    v-bind="field"
+                    label="Set weight"
+                    v-model="set.weight"
+                    :error-messages="errors"
+                  ></v-text-field>
+                </Field>
+              </div>
+              <button class="mr-5" @click.prevent="addSet(index)">
+                Add set
+              </button>
+
+              <button @click.prevent="deleteExercise(index)">
+                Delete exercise
+              </button>
+            </div>
+
+            <button class="d-block" @click.prevent="addExercise">
+              Add exercise
+            </button>
 
             <button type="submit" data-test="save-button">Save</button>
 
@@ -81,11 +141,7 @@ export default {
       chosenFilter: false,
       trainingType: "",
       createNew: false,
-      exerciseArray: [{ name: "Bench", sets: [{ weight: 10, repetition: 7 }] }],
-
-      exerciseName: "",
-      setWeight: 0,
-      setRepetition: 0
+      exerciseArray: [{ name: "", sets: [{ weight: 0, repetition: 0 }] }],
     };
   },
 
@@ -95,6 +151,24 @@ export default {
     },
     clearCreateInputs() {
       this.trainingType = "";
+      this.exerciseArray = [{ name: "", sets: [{ weight: 0, repetition: 0 }] }];
+    },
+    addExercise() {
+      this.exerciseArray.push({
+        name: "",
+        sets: [{ weight: 0, repetition: 0 }],
+      });
+    },
+
+    addSet(index) {
+      this.exerciseArray[index].sets.push({
+        repetition: 0,
+        weight: 0,
+      });
+    },
+
+    deleteExercise(index) {
+      this.exerciseArray.splice(index, 1);
     },
   },
 
@@ -104,4 +178,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.exercise-wrapper {
+  border: 2px black solid;
+}
+</style>
