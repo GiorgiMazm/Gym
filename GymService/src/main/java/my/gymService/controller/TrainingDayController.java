@@ -35,8 +35,6 @@ public class TrainingDayController {
     @PutMapping(path = "editTrainingDay/{trainingDayId}")
     public void updateTrainingDay(@PathVariable(value = "trainingDayId") Long trainingDayId, @RequestBody TrainingDay newTrainingDay) {
         TrainingDay trainingDay = trainingDayRepository.findById(trainingDayId).get();
-        System.out.println(trainingDay);
-        System.out.println(newTrainingDay);
 
         trainingDay.setType(newTrainingDay.getType());
         trainingDay.setCreatedAt(LocalDate.now());
