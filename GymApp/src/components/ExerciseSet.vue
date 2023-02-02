@@ -1,7 +1,7 @@
 <template>
   <v-list-item-subtitle v-if="!editMode"
-    >Number of set: <span>{{ getCurrentSet.order }}</span
-    >, repetition: <span> {{ getCurrentSet.repetition }}</span
+    >Set {{ setIndex + 1 }} <span></span>, repetition:
+    <span> {{ getCurrentSet.repetition }}</span
     >, weight:
     <span> {{ getCurrentSet.weight }}</span>
     kg
@@ -10,7 +10,7 @@
   <v-text-field
     v-if="editMode"
     v-model="getCurrentSet.order"
-    label="Number of set"
+    label="Set"
   ></v-text-field>
   <v-text-field
     v-if="editMode"

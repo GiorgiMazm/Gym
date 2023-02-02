@@ -9,7 +9,7 @@
           <router-view />
           <div class="d-flex justify-space-around flex-wrap">
             <TrainingDay
-              v-for="(day, index) in trainingDays"
+              v-for="(day, index) in getAllTrainingDays"
               :key="index"
               :dayIndex="index"
             ></TrainingDay>
@@ -125,7 +125,7 @@
 import AppHeader from "./AppHeader.vue";
 import TrainingDay from "./TrainingDay.vue";
 import { useGymStore } from "@/stores/GymStore";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { Field, Form } from "vee-validate";
 
 export default {
@@ -146,6 +146,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(useGymStore, ["loadAllTrainingDays"]),
     createNewToggle() {
       this.createNew = !this.createNew;
     },
@@ -178,7 +179,10 @@ export default {
   },
 
   computed: {
-    ...mapState(useGymStore, ["trainingDays"]),
+    ...mapState(useGymStore, ["getAllTrainingDays"]),
+  },
+  created() {
+    this.loadAllTrainingDays();
   },
 };
 </script>

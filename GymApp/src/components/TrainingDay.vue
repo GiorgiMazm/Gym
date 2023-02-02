@@ -2,12 +2,12 @@
   <v-card class="mt-4" width="400px">
     <v-card-item>
       <v-card-title v-if="!editMode" class="text-h5" ref="day"
-        >Day {{ getCurrentDay.order }}
+        >Day {{ getCurrentDay.createdAt }}
       </v-card-title>
 
       <v-text-field
         v-if="editMode"
-        v-model="getCurrentDay.order"
+        v-model="getCurrentDay.createdAt"
         label="Training day"
       ></v-text-field>
 
@@ -31,7 +31,7 @@
         <v-text-field
           v-if="editMode"
           v-model="getCurrentDay.type"
-          label="Muscle group"
+          label="Training Type"
         ></v-text-field>
       </v-row>
     </v-card-text>
