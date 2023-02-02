@@ -47,11 +47,7 @@
               v-bind:key="index"
             >
               <div>Exercise {{ index + 1 }}</div>
-              <Field
-                v-bind:key="index"
-                :name="`exercise-${index}`"
-                v-slot="{ field, errors }"
-              >
+              <Field :name="`exercise-${index}`" v-slot="{ field, errors }">
                 <v-text-field
                   v-bind="field"
                   label="Exercise name"
@@ -88,6 +84,10 @@
                     :error-messages="errors"
                   ></v-text-field>
                 </Field>
+
+                <button @click.prevent="deleteExerciseSet(index, setIndex)">
+                  Delete set
+                </button>
               </div>
               <button class="mr-5" @click.prevent="addSet(index)">
                 Add set
@@ -168,7 +168,12 @@ export default {
     },
 
     deleteExercise(index) {
+      console.log(index);
+      console.log(this.exerciseArray[index]);
       this.exerciseArray.splice(index, 1);
+    },
+    deleteExerciseSet(index, setIndex) {
+      this.exerciseArray[index].sets.splice(setIndex, 1);
     },
   },
 
