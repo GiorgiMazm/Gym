@@ -47,6 +47,9 @@
 
     <v-card-actions>
       <v-btn v-if="!editMode" @click="changeEditMode"> Edit Day </v-btn>
+      <v-btn v-if="!editMode" @click="deleteTrainingDay(getCurrentDay.id)">
+        Delete Day
+      </v-btn>
       <v-btn v-if="editMode" @click="changeEditMode"> Save Day </v-btn>
     </v-card-actions>
   </v-card>
@@ -55,7 +58,7 @@
 <script>
 import GymExercise from "./GymExercise.vue";
 import { useGymStore } from "@/stores/GymStore";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 export default {
   name: "TrainingDay",
   props: {
@@ -76,6 +79,8 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useGymStore, ["deleteTrainingDay"]),
+
     changeEditMode() {
       this.editMode = !this.editMode;
     },

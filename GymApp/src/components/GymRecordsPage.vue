@@ -28,6 +28,11 @@
             data-test="new-training-day-form"
             v-if="createNew"
             class="ml-4 mt-4"
+            @submit="
+              addTrainingDay(this.exerciseArray, trainingType);
+              clearCreateInputs();
+              createNewToggle();
+            "
           >
             <Field name="trainingDayType" v-slot="{ field, errors }">
               <v-text-field
@@ -147,6 +152,8 @@ export default {
 
   methods: {
     ...mapActions(useGymStore, ["loadAllTrainingDays"]),
+    ...mapActions(useGymStore, ["addTrainingDay"]),
+
     createNewToggle() {
       this.createNew = !this.createNew;
     },
