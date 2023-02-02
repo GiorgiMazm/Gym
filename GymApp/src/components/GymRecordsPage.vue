@@ -143,7 +143,6 @@ export default {
   },
   data() {
     return {
-      chosenFilter: false,
       trainingType: "",
       createNew: false,
       exerciseArray: [{ name: "", sets: [{ weight: 0, repetition: 0 }] }],

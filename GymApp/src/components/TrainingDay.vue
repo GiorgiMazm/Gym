@@ -50,7 +50,15 @@
       <v-btn v-if="!editMode" @click="deleteTrainingDay(getCurrentDay.id)">
         Delete Day
       </v-btn>
-      <v-btn v-if="editMode" @click="changeEditMode"> Save Day </v-btn>
+      <v-btn
+        v-if="editMode"
+        @click="
+          changeEditMode();
+          trainingDayEdit();
+        "
+      >
+        Save Day
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -80,16 +88,14 @@ export default {
   },
   methods: {
     ...mapActions(useGymStore, ["deleteTrainingDay"]),
+    ...mapActions(useGymStore, ["editTrainingDay"]),
 
     changeEditMode() {
       this.editMode = !this.editMode;
     },
-  },
-  mounted() {
-    console.log("app was mounted");
-  },
-  beforeUnmount() {
-    console.log(this.$refs.day);
+    trainingDayEdit() {
+      this.editTrainingDay(this.getCurrentDay);
+    },
   },
 };
 </script>

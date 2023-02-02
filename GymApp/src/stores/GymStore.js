@@ -41,6 +41,19 @@ export const useGymStore = defineStore("GymStore", {
         console.log(error);
       }
     },
+
+    async editTrainingDay(trainingDay) {
+      try {
+        await axios.put(
+          "http://localhost:8080/editTrainingDay/" + trainingDay.id,
+          trainingDay
+        );
+        await this.loadAllTrainingDays();
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
   },
 
   getters: {
