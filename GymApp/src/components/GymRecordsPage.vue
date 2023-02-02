@@ -34,10 +34,9 @@
               createNewToggle();
             "
           >
-            <Field name="trainingDayType" v-slot="{ field, errors }">
+            <Field name="trainingDayType" v-slot="{ errors }">
               <v-text-field
                 data-test="training-day-type"
-                v-bind="field"
                 class="w-25"
                 name="trainingType"
                 label="Training Type"
@@ -52,9 +51,8 @@
               v-bind:key="index"
             >
               <div>Exercise {{ index + 1 }}</div>
-              <Field :name="`exercise-${index}`" v-slot="{ field, errors }">
+              <Field :name="`exercise-${index}`" v-slot="{ errors }">
                 <v-text-field
-                  v-bind="field"
                   label="Exercise name"
                   v-model="exercise.name"
                   :error-messages="errors"
@@ -68,10 +66,9 @@
               >
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-rep`"
-                  v-slot="{ field, errors }"
+                  v-slot="{ errors }"
                 >
                   <v-text-field
-                    v-bind="field"
                     label="Set repetition"
                     v-model="set.repetition"
                     :error-messages="errors"
@@ -80,10 +77,9 @@
 
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-weight`"
-                  v-slot="{ field, errors }"
+                  v-slot="{ errors }"
                 >
                   <v-text-field
-                    v-bind="field"
                     label="Set weight"
                     v-model="set.weight"
                     :error-messages="errors"
