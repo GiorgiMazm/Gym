@@ -29,7 +29,7 @@
             v-if="createNew"
             class="ml-4 mt-4"
           >
-            <Field name="trainingDayType" v-slot="{ field, errors }">
+            <Field name="trainingDayType" v-slot="{ errors }">
               <v-text-field
                 data-test="training-day-type"
                 class="w-25"
@@ -46,7 +46,7 @@
               v-bind:key="index"
             >
               <div>Exercise {{ index + 1 }}</div>
-              <Field :name="`exercise-${index}`" v-slot="{ field, errors }">
+              <Field :name="`exercise-${index}`" v-slot="{ errors }">
                 <v-text-field
                   label="Exercise name"
                   v-model="exercise.name"
@@ -61,7 +61,7 @@
               >
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-rep`"
-                  v-slot="{ field, errors }"
+                  v-slot="{ errors }"
                 >
                   <v-text-field
                     label="Set repetition"
@@ -72,7 +72,7 @@
 
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-weight`"
-                  v-slot="{ field, errors }"
+                  v-slot="{ errors }"
                 >
                   <v-text-field
                     label="Set weight"
