@@ -34,13 +34,18 @@
               createNewToggle();
             "
           >
-            <Field name="trainingDayType" v-slot="{ errors }">
+            <Field
+              name="trainingDayType"
+              :rules="exist"
+              v-model="trainingType"
+              v-slot="{ field, errors }"
+            >
               <v-text-field
+                v-bind="field"
                 data-test="training-day-type"
                 class="w-25"
                 name="trainingType"
                 label="Training Type"
-                v-model="trainingType"
                 :error-messages="errors"
               ></v-text-field>
             </Field>
@@ -51,10 +56,15 @@
               v-bind:key="index"
             >
               <div>Exercise {{ index + 1 }}</div>
-              <Field :name="`exercise-${index}`" v-slot="{ errors }">
+              <Field
+                v-model="exercise.name"
+                :name="`exercise-${index}`"
+                :rules="exist"
+                v-slot="{ field, errors }"
+              >
                 <v-text-field
+                  v-bind="field"
                   label="Exercise name"
-                  v-model="exercise.name"
                   :error-messages="errors"
                 ></v-text-field>
               </Field>
@@ -66,22 +76,26 @@
               >
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-rep`"
-                  v-slot="{ errors }"
+                  v-slot="{ field, errors }"
+                  v-model="set.repetition"
+                  :rules="exist"
                 >
                   <v-text-field
+                    v-bind="field"
                     label="Set repetition"
-                    v-model="set.repetition"
                     :error-messages="errors"
                   ></v-text-field>
                 </Field>
 
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-weight`"
-                  v-slot="{ errors }"
+                  :rules="exist"
+                  v-slot="{ field, errors }"
+                  v-model="set.weight"
                 >
                   <v-text-field
+                    v-bind="field"
                     label="Set weight"
-                    v-model="set.weight"
                     :error-messages="errors"
                   ></v-text-field>
                 </Field>
@@ -171,12 +185,17 @@ export default {
     },
 
     deleteExercise(index) {
-      console.log(index);
-      console.log(this.exerciseArray[index]);
       this.exerciseArray.splice(index, 1);
     },
     deleteExerciseSet(index, setIndex) {
       this.exerciseArray[index].sets.splice(setIndex, 1);
+    },
+
+    exist(value) {
+      if (value) {
+        return true;
+      }
+      return "Field is required!";
     },
   },
 

@@ -7,11 +7,7 @@
     kg
   </v-list-item-subtitle>
 
-  <v-text-field
-    v-if="editMode"
-    v-model="getCurrentSet.order"
-    label="Set"
-  ></v-text-field>
+  <p>Set {{ setIndex + 1 }}</p>
   <v-text-field
     v-if="editMode"
     v-model="getCurrentSet.repetition"

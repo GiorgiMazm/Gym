@@ -37,14 +37,18 @@
               clearCreateInputs();
             "
           >
-            <Field name="muscleGroup" :rules="exist" v-slot="{ field, errors }">
+            <Field
+              name="muscleGroup"
+              :rules="exist"
+              v-slot="{ field, errors }"
+              v-model="muscleGroup"
+            >
               <v-text-field
                 data-test="muscle-group"
                 v-bind="field"
                 class="w-25"
                 name="muscleGroup"
                 label="Muscle Group"
-                v-model="muscleGroup"
                 :error-messages="errors"
               ></v-text-field>
             </Field>
@@ -53,6 +57,7 @@
               name="exercisesName"
               :rules="exist"
               v-slot="{ field, errors }"
+              v-model="exercisesName"
             >
               <v-text-field
                 data-test="exercise-name"
@@ -60,32 +65,39 @@
                 class="w-25"
                 name="exercisesName"
                 label="Exercise's Name"
-                v-model="exercisesName"
                 :error-messages="errors"
               ></v-text-field>
             </Field>
 
-            <Field name="difficulty" :rules="exist" v-slot="{ field, errors }">
+            <Field
+              name="difficulty"
+              :rules="exist"
+              v-slot="{ field, errors }"
+              v-model="difficulty"
+            >
               <v-select
                 data-test="difficulty"
                 v-bind="field"
                 class="w-25"
                 name="difficulty"
                 label="Difficulty"
-                v-model="difficulty"
                 :error-messages="errors"
                 :items="['Easy', 'Medium', 'Hard']"
               ></v-select>
             </Field>
 
-            <Field name="username" :rules="exist" v-slot="{ field, errors }">
+            <Field
+              name="username"
+              :rules="exist"
+              v-slot="{ field, errors }"
+              v-model="description"
+            >
               <v-text-field
                 data-test="description"
                 v-bind="field"
                 class="w-25"
                 name="username"
                 label="Description"
-                v-model="description"
                 :error-messages="errors"
               ></v-text-field>
             </Field>
