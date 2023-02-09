@@ -3,7 +3,21 @@
     <v-card>
       <v-layout>
         <AppHeader> <template #nameOfPage>Home</template></AppHeader>
-        <v-main> This is one exercise page! {{ exercise }} </v-main>
+        <v-main>
+          <v-card-title> Exercise: {{ exercise.name }} </v-card-title>
+          <v-card-subtitle
+            >This exercise is for
+            {{ exercise.muscleGroup }} muscles</v-card-subtitle
+          >
+
+          <v-card-subtitle>dif: {{ getDifficultyHelp }} </v-card-subtitle>
+          <v-card-text> description: {{ exercise.description }} </v-card-text>
+          <v-card-actions>
+            <router-link to="/catalog">
+              <v-btn text color="deep-purple accent-4"> Back </v-btn>
+            </router-link>
+          </v-card-actions>
+        </v-main>
       </v-layout>
     </v-card>
   </v-app>
@@ -34,6 +48,19 @@ export default {
     },
   },
 
+  computed: {
+    getDifficultyHelp() {
+      if (this.exercise.difficulty === "Easy") {
+        return "This is an easy exercise. You don't need any help from trainer. You can do it alone.";
+      } else if (this.exercise.difficulty === "Medium") {
+        return "This is an exercise for intermediate level. If you are a beginner, better to do it with trainer and carefully";
+      }
+      return (
+        "This is an exercise for advanced level. It is hard to it properly, so don't try to do it alone, otherwise you have " +
+        "high risk to end up with an injury. Ask your trainer for help with it"
+      );
+    },
+  },
   created() {
     this.loadExercise();
   },

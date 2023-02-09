@@ -11,7 +11,10 @@
         Muscle group: {{ filteredExercises[exerciseIndex].muscleGroup }}
       </p>
 
-      <p>Description: {{ filteredExercises[exerciseIndex].description }}</p>
+      <p>
+        Description:
+        {{ filteredExercises[exerciseIndex].description.slice(0, 20) }}...
+      </p>
     </v-card-text>
 
     <v-card-actions>
