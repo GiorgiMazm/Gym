@@ -1,4 +1,4 @@
-import ExercisesCatalogPage from "./ExercisesCatalogPage.vue";
+import ExercisesCatalogPage from "./Catalog/ExercisesCatalogPage.vue";
 import { createPinia, setActivePinia } from "pinia";
 import { createVuetify } from "vuetify";
 

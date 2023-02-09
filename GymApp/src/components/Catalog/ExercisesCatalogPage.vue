@@ -125,7 +125,7 @@
 import AppHeader from "@/components/AppHeader.vue";
 import { useCatalogStore } from "@/stores/CatalogStore";
 import { mapActions, mapState } from "pinia";
-import CatalogCard from "@/components/CatalogCard.vue";
+import CatalogCard from "@/components/Catalog/CatalogCard.vue";
 import { Field, Form } from "vee-validate";
 
 export default {

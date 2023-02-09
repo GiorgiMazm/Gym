@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 import { createVuetify } from "vuetify";
-import ExercisesCatalogPage from "@/components/ExercisesCatalogPage.vue";
+import ExercisesCatalogPage from "@/components/Catalog/ExercisesCatalogPage.vue";
 import { createPinia, setActivePinia } from "pinia";
 
 describe("Exercises Catalog page", () => {

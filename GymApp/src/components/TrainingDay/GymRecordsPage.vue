@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import AppHeader from "./AppHeader.vue";
+import AppHeader from "../AppHeader.vue";
 import TrainingDay from "./TrainingDay.vue";
 import { useGymStore } from "@/stores/GymStore";
 import { mapActions, mapState } from "pinia";

@@ -15,6 +15,17 @@
     </v-card-text>
 
     <v-card-actions>
+      <router-link :to="'catalog/' + filteredExercises[exerciseIndex].id">
+        <v-btn
+          v-if="!editMode"
+          text
+          color="deep-purple accent-4"
+          class="d-block"
+        >
+          Learn more
+        </v-btn>
+      </router-link>
+
       <v-btn
         v-if="!editMode"
         @click="changeEditMode"
@@ -99,9 +110,7 @@
       </Field>
 
       <v-card-actions>
-        <v-btn color="deep-purple accent-4" type="submit">
-          Save
-        </v-btn>
+        <v-btn color="deep-purple accent-4" type="submit"> Save </v-btn>
       </v-card-actions>
     </Form>
   </v-card>
@@ -126,7 +135,8 @@ export default {
   methods: {
     ...mapActions(useCatalogStore, ["editFilter"]),
     changeEditMode() {
-      this.editMode = !this.editMode;},
+      this.editMode = !this.editMode;
+    },
     ...mapActions(useCatalogStore, ["deleteExercise"]),
     ...mapActions(useCatalogStore, ["editExercise"]),
 

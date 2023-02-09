@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/components/HomePage.vue";
-import GymRecords from "@/components/GymRecordsPage.vue";
-import ExercisesCatalogPage from "@/components/ExercisesCatalogPage.vue";
+import GymRecords from "@/components/TrainingDay/GymRecordsPage.vue";
+import ExercisesCatalogPage from "@/components/Catalog/ExercisesCatalogPage.vue";
+import SingleExercise from "@/components/Catalog/SingleExercise.vue";
 
 const routes = [
   {
@@ -16,6 +17,11 @@ const routes = [
   {
     path: "/catalog",
     component: ExercisesCatalogPage,
+  },
+
+  {
+    path: "/catalog/:id",
+    component: SingleExercise,
   },
 ];
 

@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 import { createVuetify } from "vuetify";
 import { createPinia, setActivePinia } from "pinia";
-import GymRecordsPage from "@/components/GymRecordsPage.vue";
+import GymRecordsPage from "@/components/TrainingDay/GymRecordsPage.vue";
 
 describe("Records page", () => {
   // eslint-disable-next-line no-undef

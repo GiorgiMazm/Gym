@@ -1,4 +1,4 @@
-import GymRecordsPage from "./GymRecordsPage.vue";
+import GymRecordsPage from "./TrainingDay/GymRecordsPage.vue";
 import { createPinia, setActivePinia } from "pinia";
 import { createVuetify } from "vuetify";
 // eslint-disable-next-line no-undef

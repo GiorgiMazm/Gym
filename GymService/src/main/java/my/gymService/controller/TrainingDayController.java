@@ -17,7 +17,7 @@ public class TrainingDayController {
     }
 
     @GetMapping(path = "/allTrainingDays")
-    public List<TrainingDay> home() {
+    public List<TrainingDay> getAllTrainingDays() {
         return trainingDayRepository.findAll();
     }
 

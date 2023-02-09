@@ -6,6 +6,7 @@ import my.gymService.repository.ExerciseRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping
@@ -19,9 +20,15 @@ public class ExerciseController {
     }
 
     @GetMapping(path = "allExercises")
-    public List<Exercise> test() {
+    public List<Exercise> getAllExercise() {
         return exerciseRepository.findAll();
     }
+
+    @GetMapping(path = "exercise/{exerciseId}")
+    public Optional<Exercise> getExercise(@PathVariable("exerciseId") Long exerciseId) {
+        return exerciseRepository.findById(exerciseId);
+    }
+
 
     @PostMapping("newExercise")
     public void registerNewExercise(@RequestBody Exercise exercise) {
