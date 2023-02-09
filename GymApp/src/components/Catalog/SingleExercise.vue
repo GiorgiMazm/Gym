@@ -4,19 +4,30 @@
       <v-layout>
         <AppHeader> <template #nameOfPage>Home</template></AppHeader>
         <v-main>
-          <v-card-title> Exercise: {{ exercise.name }} </v-card-title>
-          <v-card-subtitle
-            >This exercise is for
-            {{ exercise.muscleGroup }} muscles</v-card-subtitle
-          >
+          <div v-if="exercise" class="single-exercise">
+            <v-card-title> Exercise: {{ exercise.name }} </v-card-title>
+            <v-card-subtitle
+              >This exercise is for
+              {{ exercise.muscleGroup }} muscles</v-card-subtitle
+            >
 
-          <v-card-subtitle>dif: {{ getDifficultyHelp }} </v-card-subtitle>
-          <v-card-text> description: {{ exercise.description }} </v-card-text>
-          <v-card-actions>
+            <v-card-subtitle>dif: {{ getDifficultyHelp }} </v-card-subtitle>
+            <v-card-text> description: {{ exercise.description }} </v-card-text>
+            <v-card-actions>
+              <router-link to="/catalog">
+                <v-btn text color="deep-purple accent-4"> Back </v-btn>
+              </router-link>
+            </v-card-actions>
+          </div>
+          <div v-else>
+            <v-card-title> Ooops... there is no such an exercise</v-card-title>
+
             <router-link to="/catalog">
-              <v-btn text color="deep-purple accent-4"> Back </v-btn>
+              <v-btn text color="deep-purple accent-4">
+                Back to the catalog
+              </v-btn>
             </router-link>
-          </v-card-actions>
+          </div>
         </v-main>
       </v-layout>
     </v-card>
