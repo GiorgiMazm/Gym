@@ -23,7 +23,7 @@
             <v-card-title> Ooops... there is no such an exercise</v-card-title>
 
             <router-link to="/catalog">
-              <v-btn text color="deep-purple accent-4">
+              <v-btn class="mb-3 ml-3" text color="deep-purple accent-4">
                 Back to the catalog
               </v-btn>
             </router-link>
