@@ -3,7 +3,7 @@
     <v-card>
       <v-layout>
         <AppHeader> <template #nameOfPage>Home</template></AppHeader>
-        <v-main> This is one exercise page! </v-main>
+        <v-main> This is one exercise page! {{ exercise }} </v-main>
       </v-layout>
     </v-card>
   </v-app>
@@ -11,6 +11,8 @@
 
 <script>
 import AppHeader from "@/components/AppHeader.vue";
+import { mapActions } from "pinia";
+import { useCatalogStore } from "@/stores/CatalogStore";
 
 export default {
   name: "SingleExercise",
@@ -18,8 +20,22 @@ export default {
     AppHeader,
   },
 
-  mounted() {
-    console.log(this.$route.params.id);
+  data() {
+    return {
+      exercise: {},
+    };
+  },
+  methods: {
+    ...mapActions(useCatalogStore, ["getExerciseById"]),
+
+    async loadExercise() {
+      const response = await this.getExerciseById(this.$route.params.id);
+      this.exercise = response.data;
+    },
+  },
+
+  created() {
+    this.loadExercise();
   },
 };
 </script>

@@ -34,6 +34,15 @@ export const useCatalogStore = defineStore("CatalogStore", {
         console.log(error);
       }
     },
+
+    async getExerciseById(id) {
+      try {
+        return await axios.get("http://localhost:8080/exercise/" + id);
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
     async addExercise(muscleGroup, name, difficulty, description) {
       const exercise = {
         name: name,
