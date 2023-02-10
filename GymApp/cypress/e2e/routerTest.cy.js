@@ -70,6 +70,14 @@ describe("Catalog Routing", () => {
     );
   });
 
+  it("exercise edit does not exist", () => {
+    cy.visit("catalog/edit/64644574557646");
+    cy.get(".v-card-title").should(
+      "contain.text",
+      "Ooops... You cant edit this exercise! There is no such an exercise!"
+    );
+  });
+
   it("edit an exercise", () => {
     const exerciseName = "myName777";
     exerciseFactory.create({

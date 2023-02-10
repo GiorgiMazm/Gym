@@ -4,7 +4,12 @@
       <v-layout>
         <AppHeader> <template #nameOfPage>Edit Exercise</template></AppHeader>
         <v-main>
-          <Form class="mt-4" name="editExerciseForm" @submit="exerciseEdit">
+          <Form
+            v-if="exercise"
+            class="mt-4"
+            name="editExerciseForm"
+            @submit="exerciseEdit"
+          >
             <Field
               name="exerciseName"
               v-model="exercise.name"
@@ -73,6 +78,18 @@
               </v-btn>
             </v-card-actions>
           </Form>
+          <div v-else>
+            <v-card-title>
+              Ooops... You cant edit this exercise! There is no such an
+              exercise!</v-card-title
+            >
+
+            <router-link to="/catalog">
+              <v-btn class="mb-3 ml-3" text color="deep-purple accent-4">
+                Back to the catalog
+              </v-btn>
+            </router-link>
+          </div>
         </v-main>
       </v-layout>
     </v-card>
