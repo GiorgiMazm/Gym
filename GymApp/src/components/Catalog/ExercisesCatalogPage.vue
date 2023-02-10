@@ -92,14 +92,14 @@
               v-slot="{ field, errors }"
               v-model="description"
             >
-              <v-text-field
+              <v-textarea
                 data-test="description"
                 v-bind="field"
                 class="w-25"
                 name="username"
                 label="Description"
                 :error-messages="errors"
-              ></v-text-field>
+              ></v-textarea>
             </Field>
 
             <button type="submit" data-test="save-button">Save</button>
