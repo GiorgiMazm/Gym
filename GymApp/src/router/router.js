@@ -4,6 +4,7 @@ import GymRecords from "@/components/TrainingDay/GymRecordsPage.vue";
 import ExercisesCatalogPage from "@/components/Catalog/ExercisesCatalogPage.vue";
 import SingleExercise from "@/components/Catalog/SingleExercise.vue";
 import NotFound from "@/components/NotFound.vue";
+import EditExercise from "@/components/Catalog/EditExercise.vue";
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
   {
     path: "/catalog/:id",
     component: SingleExercise,
+  },
+
+  {
+    path: "/catalog/edit/:id",
+    component: EditExercise,
   },
 
   {
