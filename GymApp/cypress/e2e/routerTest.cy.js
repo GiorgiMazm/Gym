@@ -52,7 +52,10 @@ describe("Catalog Routing", () => {
       .within(() => {
         cy.get("span").contains("Learn more").click();
       });
-    cy.get("div").contains("Exercise:").should("contain.text", exerciseName);
+    cy.get(".v-toolbar-title__placeholder").should(
+      "contain.text",
+      "Single Exercise"
+    );
     cy.url().should("contain", "http://localhost:5173/catalog/");
 
     cy.get("span").contains("Back").click();
@@ -65,5 +68,33 @@ describe("Catalog Routing", () => {
       "contain.text",
       "Ooops... there is no such an exercise"
     );
+  });
+
+  it("edit an exercise", () => {
+    const exerciseName = "myName777";
+    exerciseFactory.create({
+      name: exerciseName,
+      muscle: "all of muscles",
+      difficulty: "Easy",
+      description:
+        "This exercise is too hard for you young man. Don't you dare even try to do it. You'll die...",
+    });
+    cy.get(".all-exercises").should("contain.text", exerciseName);
+
+    cy.get(".catalogCardName")
+      .contains(exerciseName)
+      .parent()
+      .parent()
+      .within(() => {
+        cy.get("span").contains("Edit").click();
+      });
+    cy.get(".v-toolbar-title__placeholder").should(
+      "contain.text",
+      "Edit Exercise"
+    );
+    cy.url().should("contain", "http://localhost:5173/catalog/edit/");
+
+    cy.get("span").contains("Back").click();
+    exerciseFactory.delete(exerciseName);
   });
 });

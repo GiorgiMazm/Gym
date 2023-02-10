@@ -2,7 +2,7 @@
   <v-app>
     <v-card>
       <v-layout>
-        <AppHeader> <template #nameOfPage>Exercise</template></AppHeader>
+        <AppHeader> <template #nameOfPage>Single Exercise</template></AppHeader>
         <v-main>
           <div v-if="exercise" class="single-exercise">
             <v-card-title> Exercise: {{ exercise.name }} </v-card-title>

@@ -9,7 +9,7 @@ export default {
         cy.get("div").contains(difficulty).click();
       });
     if (description)
-      cy.get("[data-test='description']").find("input").type(description);
+      cy.get("[data-test='description']").find("textarea").type(description);
     cy.get("[data-test='save-button']").click();
   },
 
