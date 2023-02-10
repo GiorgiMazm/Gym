@@ -2,7 +2,7 @@
   <v-app>
     <v-card>
       <v-layout>
-        <AppHeader> <template #nameOfPage>Home</template></AppHeader>
+        <AppHeader> <template #nameOfPage>404</template></AppHeader>
         <v-main>
           <div>
             <v-card-title>

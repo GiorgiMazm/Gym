@@ -2,17 +2,21 @@
   <v-app>
     <v-card>
       <v-layout>
-        <AppHeader> <template #nameOfPage>Home</template></AppHeader>
+        <AppHeader> <template #nameOfPage>Exercise</template></AppHeader>
         <v-main>
           <div v-if="exercise" class="single-exercise">
             <v-card-title> Exercise: {{ exercise.name }} </v-card-title>
             <v-card-subtitle
               >This exercise is for
-              {{ exercise.muscleGroup }} muscles</v-card-subtitle
+              {{ exercise.muscleGroup }} muscles.</v-card-subtitle
             >
 
-            <v-card-subtitle>dif: {{ getDifficultyHelp }} </v-card-subtitle>
-            <v-card-text> description: {{ exercise.description }} </v-card-text>
+            <v-card-subtitle
+              >Difficulty: {{ exercise.difficulty }}. {{ getDifficultyHelp }}
+            </v-card-subtitle>
+            <v-card-text class="w-50">
+              Description: {{ exercise.description }}
+            </v-card-text>
             <v-card-actions>
               <router-link to="/catalog">
                 <v-btn text color="deep-purple accent-4"> Back </v-btn>
@@ -62,12 +66,12 @@ export default {
   computed: {
     getDifficultyHelp() {
       if (this.exercise.difficulty === "Easy") {
-        return "This is an easy exercise. You don't need any help from trainer. You can do it alone.";
+        return "This is an exercise for beginner. You don't need any help from trainer. You can do it alone.";
       } else if (this.exercise.difficulty === "Medium") {
         return "This is an exercise for intermediate level. If you are a beginner, better to do it with trainer and carefully";
       }
       return (
-        "This is an exercise for advanced level. It is hard to it properly, so don't try to do it alone, otherwise you have " +
+        "This is an exercise for advanced level. It is hard to do it properly, so don't try to do it alone, otherwise you have " +
         "high risk to end up with an injury. Ask your trainer for help with it"
       );
     },
