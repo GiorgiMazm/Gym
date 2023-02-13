@@ -6,6 +6,7 @@ import SingleExercise from "@/components/Catalog/SingleExercise.vue";
 import NotFound from "@/components/NotFound.vue";
 import EditExercise from "@/components/Catalog/EditExercise.vue";
 import SingleRecord from "@/components/Records/SingleRecord.vue";
+import EditRecord from "@/components/Records/EditRecord.vue";
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
   {
     path: "/record/:id",
     component: SingleRecord,
+  },
+
+  {
+    path: "/record/edit/:id",
+    component: EditRecord,
   },
 
   {

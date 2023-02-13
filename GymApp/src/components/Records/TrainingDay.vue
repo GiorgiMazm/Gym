@@ -56,6 +56,11 @@
       <v-btn v-if="!editMode" @click="deleteTrainingDay(getCurrentDay.id)">
         Delete Day
       </v-btn>
+
+      <router-link :to="'record/edit/' + getCurrentDay.id">
+        <v-btn text color="deep-purple accent-4" class="d-block"> Edit </v-btn>
+      </router-link>
+
       <v-btn
         v-if="editMode"
         @click="
