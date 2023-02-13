@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping
@@ -19,6 +20,11 @@ public class TrainingDayController {
     @GetMapping(path = "/allTrainingDays")
     public List<TrainingDay> getAllTrainingDays() {
         return trainingDayRepository.findAll();
+    }
+
+    @GetMapping(path = "trainingDay/{trainingDayId}")
+    public Optional<TrainingDay> getTrainingDay(@PathVariable("trainingDayId") Long trainingDayId) {
+        return trainingDayRepository.findById(trainingDayId);
     }
 
     @PostMapping("newTrainingDay")

@@ -46,6 +46,12 @@
     <v-divider></v-divider>
 
     <v-card-actions>
+      <router-link :to="'record/' + getCurrentDay.id">
+        <v-btn text color="deep-purple accent-4" class="d-block">
+          Learn more
+        </v-btn>
+      </router-link>
+
       <v-btn v-if="!editMode" @click="changeEditMode"> Edit Day </v-btn>
       <v-btn v-if="!editMode" @click="deleteTrainingDay(getCurrentDay.id)">
         Delete Day

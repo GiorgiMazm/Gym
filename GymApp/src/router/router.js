@@ -5,12 +5,18 @@ import ExercisesCatalogPage from "@/components/Catalog/ExercisesCatalogPage.vue"
 import SingleExercise from "@/components/Catalog/SingleExercise.vue";
 import NotFound from "@/components/NotFound.vue";
 import EditExercise from "@/components/Catalog/EditExercise.vue";
+import SingleRecord from "@/components/Records/SingleRecord.vue";
 
 const routes = [
   {
     path: "/records",
     component: GymRecords,
   },
+  {
+    path: "/record/:id",
+    component: SingleRecord,
+  },
+
   {
     path: "/",
     component: HomePage,
