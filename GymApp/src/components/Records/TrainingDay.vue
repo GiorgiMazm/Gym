@@ -1,15 +1,9 @@
 <template>
   <v-card class="mt-4" width="400px">
     <v-card-item>
-      <v-card-title v-if="!editMode" class="text-h5"
+      <v-card-title class="text-h5"
         >Day {{ getCurrentDay.createdAt }}
       </v-card-title>
-
-      <v-text-field
-        v-if="editMode"
-        v-model="getCurrentDay.createdAt"
-        label="Training day"
-      ></v-text-field>
 
       <v-card-subtitle>
         <v-icon
@@ -25,14 +19,9 @@
 
     <v-card-text class="py-0">
       <v-row align="center" hide-gutters no-gutters>
-        <v-col v-if="!editMode" class="text-h2" cols="6">
+        <v-col class="text-h2" cols="6">
           {{ getCurrentDay.type }}
         </v-col>
-        <v-text-field
-          v-if="editMode"
-          v-model="getCurrentDay.type"
-          label="Training Type"
-        ></v-text-field>
       </v-row>
     </v-card-text>
 
@@ -41,7 +30,6 @@
       :key="index"
       :exerciseIndex="index"
       :dayIndex="dayIndex"
-      :editMode="editMode"
     ></GymExercise>
     <v-divider></v-divider>
 
@@ -52,24 +40,11 @@
         </v-btn>
       </router-link>
 
-      <v-btn v-if="!editMode" @click="changeEditMode"> Edit Day </v-btn>
-      <v-btn v-if="!editMode" @click="deleteTrainingDay(getCurrentDay.id)">
-        Delete Day
-      </v-btn>
+      <v-btn @click="deleteTrainingDay(getCurrentDay.id)"> Delete Day</v-btn>
 
       <router-link :to="'record/edit/' + getCurrentDay.id">
-        <v-btn text color="deep-purple accent-4" class="d-block"> Edit </v-btn>
+        <v-btn text color="deep-purple accent-4" class="d-block"> Edit</v-btn>
       </router-link>
-
-      <v-btn
-        v-if="editMode"
-        @click="
-          changeEditMode();
-          trainingDayEdit();
-        "
-      >
-        Save Day
-      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -78,6 +53,7 @@
 import GymExercise from "./GymExercise.vue";
 import { useGymStore } from "@/stores/GymStore";
 import { mapActions, mapState } from "pinia";
+
 export default {
   name: "TrainingDay",
   props: {
@@ -87,9 +63,7 @@ export default {
     GymExercise,
   },
   data() {
-    return {
-      editMode: false,
-    };
+    return {};
   },
   computed: {
     ...mapState(useGymStore, ["trainingDays"]),
@@ -99,14 +73,6 @@ export default {
   },
   methods: {
     ...mapActions(useGymStore, ["deleteTrainingDay"]),
-    ...mapActions(useGymStore, ["editTrainingDay"]),
-
-    changeEditMode() {
-      this.editMode = !this.editMode;
-    },
-    trainingDayEdit() {
-      this.editTrainingDay(this.getCurrentDay);
-    },
   },
 };
 </script>

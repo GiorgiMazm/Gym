@@ -1,13 +1,8 @@
 <template>
   <v-list-item density="compact">
-    <v-list-item-title left v-if="!editMode">
+    <v-list-item-title left>
       {{ getCurrentExercise.name }}
     </v-list-item-title>
-    <v-text-field
-      v-if="editMode"
-      v-model="getCurrentExercise.name"
-      label="Exercise"
-    ></v-text-field>
 
     <ExerciseSet
       v-for="(set, index) in getCurrentExercise.sets"
@@ -15,7 +10,6 @@
       :exerciseIndex="exerciseIndex"
       :dayIndex="dayIndex"
       :setIndex="index"
-      :editMode="editMode"
     >
     </ExerciseSet>
   </v-list-item>
@@ -30,7 +24,6 @@ export default {
   props: {
     exerciseIndex: Number,
     dayIndex: Number,
-    editMode: Boolean,
   },
   data() {
     return {

@@ -1,23 +1,11 @@
 <template>
-  <v-list-item-subtitle v-if="!editMode"
+  <v-list-item-subtitle
     >Set {{ setIndex + 1 }} <span></span>, repetition:
     <span> {{ getCurrentSet.repetition }}</span
     >, weight:
     <span> {{ getCurrentSet.weight }}</span>
     kg
   </v-list-item-subtitle>
-
-  <p>Set {{ setIndex + 1 }}</p>
-  <v-text-field
-    v-if="editMode"
-    v-model="getCurrentSet.repetition"
-    label="Number of repetition"
-  ></v-text-field>
-  <v-text-field
-    v-if="editMode"
-    v-model="getCurrentSet.weight"
-    label="Weight"
-  ></v-text-field>
 </template>
 
 <script>
@@ -30,7 +18,6 @@ export default {
     exerciseIndex: Number,
     dayIndex: Number,
     setIndex: Number,
-    editMode: Boolean,
   },
   data() {
     return {};
