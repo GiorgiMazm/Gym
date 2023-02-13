@@ -1,7 +1,7 @@
 <template>
   <v-card class="mt-4" width="400px">
     <v-card-item>
-      <v-card-title v-if="!editMode" class="text-h5" ref="day"
+      <v-card-title v-if="!editMode" class="text-h5"
         >Day {{ getCurrentDay.createdAt }}
       </v-card-title>
 

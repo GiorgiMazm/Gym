@@ -18,6 +18,15 @@ export const useGymStore = defineStore("GymStore", {
       }
     },
 
+    async getTrainingDayById(id) {
+      try {
+        return await axios.get("http://localhost:8080/trainingDay/" + id);
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+
     async deleteTrainingDay(id) {
       try {
         await axios.delete("http://localhost:8080/deleteDay/" + id);
