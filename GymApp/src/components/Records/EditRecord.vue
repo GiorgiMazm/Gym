@@ -72,7 +72,7 @@
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-rep`"
                   v-model="set.repetition"
-                  :rules="rules.exist"
+                  :rules="[rules.exist, rules.isValidNumber]"
                   v-slot="{ field, errors }"
                 >
                   <v-text-field
@@ -87,7 +87,7 @@
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-weight`"
                   v-model="set.weight"
-                  :rules="rules.exist"
+                  :rules="[rules.exist, rules.isValidNumber]"
                   v-slot="{ field, errors }"
                 >
                   <v-text-field
