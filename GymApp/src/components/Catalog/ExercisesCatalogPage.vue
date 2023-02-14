@@ -38,6 +38,21 @@
             "
           >
             <Field
+              name="exercisesName"
+              :rules="[uniqueName, exist]"
+              v-slot="{ field, errors }"
+              v-model="exercisesName"
+            >
+              <v-text-field
+                data-test="exercise-name"
+                v-bind="field"
+                class="w-25"
+                name="exercisesName"
+                label="Exercise's Name"
+                :error-messages="errors"
+              ></v-text-field>
+            </Field>
+            <Field
               name="muscleGroup"
               :rules="exist"
               v-slot="{ field, errors }"
@@ -49,22 +64,6 @@
                 class="w-25"
                 name="muscleGroup"
                 label="Muscle Group"
-                :error-messages="errors"
-              ></v-text-field>
-            </Field>
-
-            <Field
-              name="exercisesName"
-              :rules="exist"
-              v-slot="{ field, errors }"
-              v-model="exercisesName"
-            >
-              <v-text-field
-                data-test="exercise-name"
-                v-bind="field"
-                class="w-25"
-                name="exercisesName"
-                label="Exercise's Name"
                 :error-messages="errors"
               ></v-text-field>
             </Field>
@@ -87,7 +86,7 @@
             </Field>
 
             <Field
-              name="username"
+              name="description"
               :rules="exist"
               v-slot="{ field, errors }"
               v-model="description"
@@ -145,11 +144,13 @@ export default {
       description: "",
       difficulty: "",
       createNew: false,
+      exerciseNames: [],
     };
   },
 
   computed: {
     ...mapState(useCatalogStore, ["filteredExercises"]),
+    ...mapState(useCatalogStore, ["exercises"]),
   },
 
   methods: {
@@ -165,6 +166,13 @@ export default {
         return true;
       }
       return "Field is required!";
+    },
+
+    uniqueName(value) {
+      const found = this.exercises.some(
+        (exercise) => exercise.name === value.trim()
+      );
+      return found ? "Exercise name must be unique" : true;
     },
 
     clearCreateInputs() {
