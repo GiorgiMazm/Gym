@@ -24,7 +24,7 @@
                 v-for="(set, setIndex) in record.exercises[index].sets"
                 density="compact"
                 :key="setIndex"
-                >Set {{ setIndex + 1 }} <span></span>, repetition:
+                >Set {{ setIndex + 1 }}, <span></span> repetition:
                 <span>
                   {{ record.exercises[index].sets[setIndex].repetition }}</span
                 >, weight:

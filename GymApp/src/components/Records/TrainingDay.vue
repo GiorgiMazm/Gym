@@ -18,20 +18,15 @@
     </v-card-item>
 
     <v-card-text class="py-0">
-      <v-row align="center" hide-gutters no-gutters>
-        <v-col class="text-h2" cols="6">
+      <v-row align="center" hide-gutters>
+        <v-col class="text-h2">
           {{ getCurrentDay.type }}
         </v-col>
       </v-row>
+      <v-list-item-subtitle class="mt-2">
+        Exercise quantity: {{ getCurrentDay.exercises.length }}
+      </v-list-item-subtitle>
     </v-card-text>
-
-    <GymExercise
-      v-for="(exercise, index) in getCurrentDay.exercises"
-      :key="index"
-      :exerciseIndex="index"
-      :dayIndex="dayIndex"
-    ></GymExercise>
-    <v-divider></v-divider>
 
     <v-card-actions>
       <router-link :to="'record/' + getCurrentDay.id">
@@ -50,7 +45,6 @@
 </template>
 
 <script>
-import GymExercise from "./GymExercise.vue";
 import { useGymStore } from "@/stores/GymStore";
 import { mapActions, mapState } from "pinia";
 
@@ -58,12 +52,6 @@ export default {
   name: "TrainingDay",
   props: {
     dayIndex: Number,
-  },
-  components: {
-    GymExercise,
-  },
-  data() {
-    return {};
   },
   computed: {
     ...mapState(useGymStore, ["trainingDays"]),
