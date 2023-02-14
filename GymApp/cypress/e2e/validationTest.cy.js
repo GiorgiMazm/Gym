@@ -47,6 +47,28 @@ describe("Can't create a new exercise if", () => {
     cy.get(".v-messages__message").should("have.text", "Field is required!");
     cy.get(".all-exercises").should("not.contain.text", exerciseName);
   });
+
+  it("Exercise name is not unique", () => {
+    const exerciseName = "Chest44646464";
+    exerciseFactory.create({
+      name: exerciseName,
+      muscle: "chest",
+      difficulty: "Hard",
+      description: "do it!!",
+    });
+
+    exerciseFactory.create({
+      name: exerciseName,
+      muscle: "chest",
+      difficulty: "Hard",
+      description: "do it!!",
+    });
+    cy.get(".v-messages__message").should(
+      "have.text",
+      "Exercise name must be unique"
+    );
+    exerciseFactory.delete(exerciseName);
+  });
 });
 
 describe("Can create a new exercise if", () => {
