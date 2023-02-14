@@ -36,7 +36,7 @@
           >
             <Field
               name="trainingDayType"
-              :rules="exist"
+              :rules="rules.exist"
               v-model="trainingType"
               v-slot="{ field, errors }"
             >
@@ -59,7 +59,7 @@
               <Field
                 v-model="exercise.name"
                 :name="`exercise-${index}`"
-                :rules="exist"
+                :rules="rules.exist"
                 v-slot="{ field, errors }"
               >
                 <v-text-field
@@ -78,7 +78,7 @@
                   :name="`exercise-${index}-set-${setIndex}-rep`"
                   v-slot="{ field, errors }"
                   v-model="set.repetition"
-                  :rules="exist"
+                  :rules="rules.exist"
                 >
                   <v-text-field
                     v-bind="field"
@@ -89,7 +89,7 @@
 
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-weight`"
-                  :rules="exist"
+                  :rules="rules.exist"
                   v-slot="{ field, errors }"
                   v-model="set.weight"
                 >
@@ -142,6 +142,7 @@ import TrainingDay from "./TrainingDay.vue";
 import { useGymStore } from "@/stores/GymStore";
 import { mapActions, mapState } from "pinia";
 import { Field, Form } from "vee-validate";
+import rules from "@/Validation/rules";
 
 export default {
   name: "GymRecords",
@@ -156,6 +157,7 @@ export default {
       trainingType: "",
       createNew: false,
       exerciseArray: [{ name: "", sets: [{ weight: 0, repetition: 0 }] }],
+      rules: rules,
     };
   },
 
@@ -189,13 +191,6 @@ export default {
     },
     deleteExerciseSet(index, setIndex) {
       this.exerciseArray[index].sets.splice(setIndex, 1);
-    },
-
-    exist(value) {
-      if (value) {
-        return true;
-      }
-      return "Field is required!";
     },
   },
 

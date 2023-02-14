@@ -18,7 +18,7 @@
             <Field
               name="recordDate"
               v-model="record.createdAt"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
             >
               <v-text-field
@@ -33,7 +33,7 @@
             <Field
               name="recordType"
               v-model="record.type"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
             >
               <v-text-field
@@ -53,7 +53,7 @@
               <Field
                 :name="`exercise-${index}`"
                 v-model="exercise.name"
-                :rules="exist"
+                :rules="rules.exist"
                 v-slot="{ field, errors }"
               >
                 <v-text-field
@@ -72,7 +72,7 @@
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-rep`"
                   v-model="set.repetition"
-                  :rules="exist"
+                  :rules="rules.exist"
                   v-slot="{ field, errors }"
                 >
                   <v-text-field
@@ -87,7 +87,7 @@
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-weight`"
                   v-model="set.weight"
-                  :rules="exist"
+                  :rules="rules.exist"
                   v-slot="{ field, errors }"
                 >
                   <v-text-field
@@ -131,6 +131,7 @@ import AppHeader from "@/components/AppHeader.vue";
 import { mapActions } from "pinia";
 import { useGymStore } from "@/stores/GymStore";
 import { Field, Form } from "vee-validate";
+import rules from "@/Validation/rules";
 
 export default {
   name: "EditRecord",
@@ -143,6 +144,7 @@ export default {
   data() {
     return {
       record: {},
+      rules: rules,
     };
   },
 
@@ -153,13 +155,6 @@ export default {
     async loadTrainingDay() {
       const response = await this.getTrainingDayById(this.$route.params.id);
       this.record = response.data;
-    },
-
-    exist(value) {
-      if (value) {
-        return true;
-      }
-      return "Field is required";
     },
   },
 

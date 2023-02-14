@@ -13,7 +13,7 @@
             <Field
               name="exerciseName"
               v-model="exercise.name"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
             >
               <v-text-field
@@ -28,7 +28,7 @@
             <Field
               name="difficulty"
               v-model="exercise.difficulty"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
             >
               <v-select
@@ -44,7 +44,7 @@
             <Field
               name="muscleGroup"
               v-model="exercise.muscleGroup"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
             >
               <v-text-field
@@ -59,7 +59,7 @@
             <Field
               name="description"
               v-model="exercise.description"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
             >
               <v-textarea
@@ -101,6 +101,7 @@ import { Field, Form } from "vee-validate";
 import { mapActions } from "pinia";
 import { useCatalogStore } from "@/stores/CatalogStore";
 import AppHeader from "@/components/AppHeader.vue";
+import rules from "@/Validation/rules";
 
 export default {
   name: "EditExercise",
@@ -112,6 +113,7 @@ export default {
   data() {
     return {
       exercise: {},
+      rules: rules,
     };
   },
   methods: {
@@ -122,13 +124,6 @@ export default {
       const response = await this.getExerciseById(this.$route.params.id);
       this.exercise = response.data;
     },
-    exist(value) {
-      if (value) {
-        return true;
-      }
-      return "Field is required";
-    },
-
     exerciseEdit() {
       this.editExercise(
         this.exercise.muscleGroup,

@@ -39,7 +39,7 @@
           >
             <Field
               name="exercisesName"
-              :rules="[uniqueName, exist]"
+              :rules="[uniqueName, rules.exist]"
               v-slot="{ field, errors }"
               v-model="exercisesName"
             >
@@ -54,7 +54,7 @@
             </Field>
             <Field
               name="muscleGroup"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
               v-model="muscleGroup"
             >
@@ -70,7 +70,7 @@
 
             <Field
               name="difficulty"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
               v-model="difficulty"
             >
@@ -87,7 +87,7 @@
 
             <Field
               name="description"
-              :rules="exist"
+              :rules="rules.exist"
               v-slot="{ field, errors }"
               v-model="description"
             >
@@ -126,6 +126,7 @@ import { useCatalogStore } from "@/stores/CatalogStore";
 import { mapActions, mapState } from "pinia";
 import CatalogCard from "@/components/Catalog/CatalogCard.vue";
 import { Field, Form } from "vee-validate";
+import rules from "@/Validation/rules";
 
 export default {
   name: "ExercisesCatalogPage",
@@ -145,6 +146,7 @@ export default {
       difficulty: "",
       createNew: false,
       exerciseNames: [],
+      rules: rules,
     };
   },
 
@@ -160,12 +162,11 @@ export default {
     createNewToggle() {
       this.createNew = !this.createNew;
     },
-
-    exist(value) {
-      if (value) {
-        return true;
-      }
-      return "Field is required!";
+    clearCreateInputs() {
+      this.muscleGroup = "";
+      this.exercisesName = "";
+      this.difficulty = "";
+      this.description = "";
     },
 
     uniqueName(value) {
@@ -173,13 +174,6 @@ export default {
         (exercise) => exercise.name === value.trim()
       );
       return found ? "Exercise name must be unique" : true;
-    },
-
-    clearCreateInputs() {
-      this.muscleGroup = "";
-      this.exercisesName = "";
-      this.difficulty = "";
-      this.description = "";
     },
   },
   created() {
