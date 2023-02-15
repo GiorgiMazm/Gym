@@ -1,5 +1,5 @@
 import exerciseFactory from "./ExerciseFactory";
-
+import recordFactory from "./RecordFactory";
 describe("Can't create a new exercise if", () => {
   beforeEach(() => {
     cy.visit("catalog");
@@ -72,11 +72,8 @@ describe("Can't create a new exercise if", () => {
 });
 
 describe("Can create a new exercise if", () => {
-  beforeEach(() => {
-    cy.visit("catalog");
-  });
-
   it("All field are correct", () => {
+    cy.visit("catalog");
     const exerciseName = "Biceps Curls";
     exerciseFactory.create({
       name: exerciseName,
@@ -88,5 +85,22 @@ describe("Can create a new exercise if", () => {
     cy.get(".all-exercises").should("contain.text", exerciseName);
 
     exerciseFactory.delete(exerciseName);
+  });
+});
+
+describe("Can create a new training day if", () => {
+  it("All field are correct", () => {
+    cy.visit("records");
+    const trainingType = "Cheeest6574857381";
+    recordFactory.create({
+      type: trainingType,
+      exercise: "bench",
+      weight: 100,
+      repetition: 8,
+      date: "2000-11-23",
+    });
+    cy.get(".records-wrapper").should("contain.text", trainingType);
+    recordFactory.delete(trainingType);
+    cy.get(".records-wrapper").should("not.contain.text", trainingType);
   });
 });

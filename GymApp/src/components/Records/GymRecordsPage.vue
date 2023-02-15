@@ -7,7 +7,7 @@
         </AppHeader>
         <v-main>
           <router-view />
-          <div class="d-flex justify-space-around flex-wrap">
+          <div class="d-flex justify-space-around flex-wrap records-wrapper">
             <TrainingDay
               v-for="(day, index) in getAllTrainingDays"
               :key="index"
