@@ -71,4 +71,34 @@ describe("catalogPage", () => {
     cy.get("span").contains("Back").click();
     exerciseFactory.delete(exerciseName);
   });
+
+  it("filter for exercises", () => {
+    const easyExerciseName = "myName7354421";
+    exerciseFactory.create({
+      name: easyExerciseName,
+      muscle: "tongue",
+      difficulty: "Easy",
+      description: "La la la",
+    });
+
+    const hardExerciseName = "myName3442122";
+    exerciseFactory.create({
+      name: hardExerciseName,
+      muscle: "tongue",
+      difficulty: "Hard",
+      description: "La la la",
+    });
+
+    cy.get("button").contains("Hard").click();
+
+    cy.get(".all-exercises").should("contain.text", hardExerciseName);
+    cy.get(".all-exercises").should("not.contain.text", easyExerciseName);
+
+    cy.get("button").contains("All").click();
+    cy.get(".all-exercises").should("contain.text", hardExerciseName);
+    cy.get(".all-exercises").should("contain.text", easyExerciseName);
+
+    exerciseFactory.delete(hardExerciseName);
+    exerciseFactory.delete(easyExerciseName);
+  });
 });
