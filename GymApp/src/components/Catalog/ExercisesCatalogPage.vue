@@ -7,7 +7,7 @@
         </AppHeader>
         <v-main class="ma-4">
           <button class="ma-2" @click="editFilter('Easy')">Easy</button>
-          <button class="ma-2" @click="editFilter('Medium')">Meduim</button>
+          <button class="ma-2" @click="editFilter('Medium')">Medium</button>
           <button class="ma-2" @click="editFilter('Hard')">Hard</button>
           <button class="ma-2" @click="editFilter('All')">All</button>
 

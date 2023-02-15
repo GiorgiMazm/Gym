@@ -174,7 +174,7 @@ export default {
       trainingType: "",
       trainingDate: new Date().toJSON().slice(0, 10),
       createNew: false,
-      exerciseArray: [{ name: "", sets: [{ weight: 0, repetition: 0 }] }],
+      exerciseArray: [{ name: "", sets: [{ weight: "", repetition: "" }] }],
       rules: rules,
     };
   },
@@ -188,19 +188,21 @@ export default {
     },
     clearCreateInputs() {
       this.trainingType = "";
-      this.exerciseArray = [{ name: "", sets: [{ weight: 0, repetition: 0 }] }];
+      this.exerciseArray = [
+        { name: "", sets: [{ weight: "", repetition: "" }] },
+      ];
     },
     addExercise() {
       this.exerciseArray.push({
         name: "",
-        sets: [{ weight: 0, repetition: 0 }],
+        sets: [{ weight: "", repetition: "" }],
       });
     },
 
     addSet(index) {
       this.exerciseArray[index].sets.push({
-        repetition: 0,
-        weight: 0,
+        repetition: "",
+        weight: "",
       });
     },
 

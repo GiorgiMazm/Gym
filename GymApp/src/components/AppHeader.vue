@@ -1,7 +1,7 @@
 <template>
   <v-app-bar color="info">
     <v-app-bar-title
-      >Gym records <v-icon icon="mdi-weight-lifter"></v-icon>
+      >Gym! <v-icon icon="mdi-weight-lifter"></v-icon>
       <slot name="nameOfPage"> </slot> page!
     </v-app-bar-title>
     <div class="links">
