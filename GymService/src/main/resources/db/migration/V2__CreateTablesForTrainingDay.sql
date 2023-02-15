@@ -2,10 +2,10 @@ CREATE TABLE training_day
 (
     id         serial not null primary key,
     type       text   not null,
-    created_at date   not null
+    training_date date   not null
 );
 
-INSERT INTO training_day (type, created_at)
+INSERT INTO training_day (type, training_date)
 VALUES ('Upper', current_date),
        ('Legs', current_date);
 

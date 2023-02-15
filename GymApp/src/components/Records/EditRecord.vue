@@ -17,15 +17,16 @@
           >
             <Field
               name="recordDate"
-              v-model="record.createdAt"
+              v-model="record.trainingDate"
               :rules="rules.exist"
               v-slot="{ field, errors }"
             >
               <v-text-field
                 v-bind="field"
                 name="recordDate"
-                v-model="record.createdAt"
-                label="Date of record"
+                v-model="record.trainingDate"
+                label="Date"
+                type="date"
                 :error-messages="errors"
               ></v-text-field>
             </Field>

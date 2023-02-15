@@ -29,11 +29,28 @@
             v-if="createNew"
             class="ml-4 mt-4"
             @submit="
-              addTrainingDay(this.exerciseArray, trainingType);
+              addTrainingDay(this.exerciseArray, trainingType, trainingDate);
               clearCreateInputs();
               createNewToggle();
             "
           >
+            <Field
+              name="recordDate"
+              v-model="trainingDate"
+              :rules="rules.exist"
+              v-slot="{ field, errors }"
+            >
+              <v-text-field
+                v-bind="field"
+                name="recordDate"
+                v-model="trainingDate"
+                label="Date"
+                type="date"
+                :error-messages="errors"
+                class="w-25"
+              ></v-text-field>
+            </Field>
+
             <Field
               name="trainingDayType"
               :rules="rules.exist"
@@ -155,6 +172,7 @@ export default {
   data() {
     return {
       trainingType: "",
+      trainingDate: new Date().toJSON().slice(0, 10),
       createNew: false,
       exerciseArray: [{ name: "", sets: [{ weight: 0, repetition: 0 }] }],
       rules: rules,

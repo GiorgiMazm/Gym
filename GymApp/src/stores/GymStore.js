@@ -37,10 +37,11 @@ export const useGymStore = defineStore("GymStore", {
       }
     },
 
-    async addTrainingDay(exerciseArray, trainingType) {
+    async addTrainingDay(exerciseArray, trainingType, trainingDate) {
       const trainingDay = {
         type: trainingType,
         exercises: exerciseArray,
+        trainingDate: trainingDate,
       };
       try {
         await axios.post("http://localhost:8080/newTrainingDay", trainingDay);

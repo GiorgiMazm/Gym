@@ -8,7 +8,7 @@
         <v-main>
           <div v-if="record" class="single-record">
             <v-card-title class="text-h5"
-              >Training from: {{ record.createdAt }}
+              >Training from: {{ record.trainingDate }}
             </v-card-title>
             <v-card-title> Training Type: {{ record.type }}</v-card-title>
             <v-list-item

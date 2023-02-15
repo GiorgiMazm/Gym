@@ -37,9 +37,8 @@ public class TrainingDay {
   @Column(name = "type", nullable = false)
   private String type;
 
-  @CreatedDate
-  @Column(name = "created_at", nullable = false)
-  private LocalDate createdAt;
+  @Column(name = "training_date", nullable = false)
+  private LocalDate trainingDate;
 
   public TrainingDay() {}
 

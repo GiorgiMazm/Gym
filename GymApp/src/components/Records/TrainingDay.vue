@@ -2,7 +2,7 @@
   <v-card class="mt-4" width="400px">
     <v-card-item>
       <v-card-title class="text-h5"
-        >Day {{ getCurrentDay.createdAt }}
+        >Day {{ getCurrentDay.trainingDate }}
       </v-card-title>
 
       <v-card-subtitle>

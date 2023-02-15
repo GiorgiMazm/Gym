@@ -29,7 +29,6 @@ public class TrainingDayController {
 
     @PostMapping("newTrainingDay")
     public void registerNewTrainingDay(@RequestBody TrainingDay trainingDay) {
-        trainingDay.setCreatedAt(LocalDate.now());
         trainingDayRepository.save(trainingDay);
     }
 
@@ -43,7 +42,7 @@ public class TrainingDayController {
         TrainingDay trainingDay = trainingDayRepository.findById(trainingDayId).get();
 
         trainingDay.setType(newTrainingDay.getType());
-        trainingDay.setCreatedAt(LocalDate.now());
+        trainingDay.setTrainingDate(newTrainingDay.getTrainingDate());
         trainingDay.setExercises(newTrainingDay.getExercises());
         trainingDayRepository.save(trainingDay);
     }
