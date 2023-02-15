@@ -8,7 +8,7 @@
         <v-main>
           <Form
             v-if="record"
-            class="single-record mt-5"
+            class="single-record mt-5 ml-5"
             name="editExerciseForm"
             @submit="
               editTrainingDay(record);
@@ -46,40 +46,40 @@
               ></v-text-field>
             </Field>
 
-            <v-list-item
+            <div
+              class="exercise-wrapper w-25 pt-4 pl-4 pr-4 mb-3"
               v-for="(exercise, index) in record.exercises"
-              density="compact"
-              :key="index"
+              v-bind:key="index"
             >
+              <div>Exercise {{ index + 1 }}</div>
               <Field
-                :name="`exercise-${index}`"
                 v-model="exercise.name"
+                :name="`exercise-${index}`"
                 :rules="rules.exist"
                 v-slot="{ field, errors }"
               >
                 <v-text-field
-                  v-bind="field"
-                  name="recordExercise"
                   v-model="exercise.name"
+                  v-bind="field"
                   label="Exercise name"
                   :error-messages="errors"
                 ></v-text-field>
               </Field>
 
-              <v-list-item
-                v-for="(set, setIndex) in exercise.sets"
-                :key="setIndex"
+              <div
+                class="exercise-set-wrapper"
+                v-for="(set, setIndex) in record.exercises[index].sets"
+                v-bind:key="setIndex"
               >
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-rep`"
+                  v-slot="{ field, errors }"
                   v-model="set.repetition"
                   :rules="[rules.exist, rules.isValidNumber]"
-                  v-slot="{ field, errors }"
                 >
                   <v-text-field
-                    v-bind="field"
-                    name="recordSetRep"
                     v-model="set.repetition"
+                    v-bind="field"
                     label="Set repetition"
                     :error-messages="errors"
                   ></v-text-field>
@@ -87,20 +87,35 @@
 
                 <Field
                   :name="`exercise-${index}-set-${setIndex}-weight`"
-                  v-model="set.weight"
                   :rules="[rules.exist, rules.isValidNumber]"
                   v-slot="{ field, errors }"
+                  v-model="set.weight"
                 >
                   <v-text-field
                     v-bind="field"
-                    name="recordSetWeight"
                     v-model="set.weight"
                     label="Set weight"
                     :error-messages="errors"
                   ></v-text-field>
                 </Field>
-              </v-list-item>
-            </v-list-item>
+
+                <button @click.prevent="deleteExerciseSet(index, setIndex)">
+                  Delete set
+                </button>
+              </div>
+              <button class="mr-5" @click.prevent="addSet(index)">
+                Add set
+              </button>
+
+              <button @click.prevent="deleteExercise(index)">
+                Delete exercise
+              </button>
+            </div>
+
+            <button class="d-block" @click.prevent="addExercise">
+              Add exercise
+            </button>
+
             <v-card-actions>
               <v-btn text type="submit" color="deep-purple accent-4">
                 Save</v-btn
@@ -156,6 +171,27 @@ export default {
     async loadTrainingDay() {
       const response = await this.getTrainingDayById(this.$route.params.id);
       this.record = response.data;
+    },
+
+    addExercise() {
+      this.record.exercises.push({
+        name: "",
+        sets: [{ weight: "", repetition: "" }],
+      });
+    },
+
+    addSet(index) {
+      this.record.exercises[index].sets.push({
+        repetition: "",
+        weight: "",
+      });
+    },
+
+    deleteExercise(index) {
+      this.record.exercises.splice(index, 1);
+    },
+    deleteExerciseSet(index, setIndex) {
+      this.record.exercises[index].sets.splice(setIndex, 1);
     },
   },
 
