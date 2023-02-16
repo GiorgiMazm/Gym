@@ -6,6 +6,7 @@ import my.gymService.repository.ExerciseRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -32,7 +33,7 @@ public class ExerciseController {
 
     @PostMapping("newExercise")
     public void registerNewExercise(@RequestBody Exercise exercise) {
-        System.out.println(exercise);
+        checkExercise(exercise);
         exerciseRepository.save(exercise);
     }
 
@@ -46,10 +47,35 @@ public class ExerciseController {
         Exercise exercise = exerciseRepository.findById(exerciseId).get();
         log.info(String.valueOf(exercise));
 
+        checkExercise(newExercise);
+
         exercise.setName(newExercise.getName());
         exercise.setDifficulty(newExercise.getDifficulty());
         exercise.setDescription(newExercise.getDescription());
         exercise.setMuscleGroup(newExercise.getMuscleGroup());
         exerciseRepository.save(exercise);
+    }
+
+    private void checkExercise(Exercise exercise) {
+        if (Objects.equals(exercise.getName().trim(), "")) {
+            throw new IllegalArgumentException("Exercise name can not be empty");
+
+        }
+        if (Objects.equals(exercise.getDescription().trim(), "")) {
+            throw new IllegalArgumentException("Description can not be empty");
+
+        }
+        if (Objects.equals(exercise.getDifficulty().trim(), "")) {
+            throw new IllegalArgumentException("Difficulty name can not be empty");
+
+        }
+        if (Objects.equals(exercise.getMuscleGroup().trim(), "")) {
+            throw new IllegalArgumentException("Muscle group name can not be empty");
+
+        }
+
+        if (exerciseRepository.findByName(exercise.getName()) != null) {
+            throw new IllegalArgumentException("Exercise name is already taken");
+        }
     }
 }
