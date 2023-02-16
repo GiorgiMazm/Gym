@@ -5,6 +5,7 @@ import my.gymService.repository.TrainingDayRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +29,7 @@ public class TrainingDayController {
 
     @PostMapping("newTrainingDay")
     public void registerNewTrainingDay(@RequestBody TrainingDay trainingDay) {
+        checkTrainingDay(trainingDay);
         trainingDayRepository.save(trainingDay);
     }
 
@@ -39,10 +41,24 @@ public class TrainingDayController {
     @PutMapping(path = "editTrainingDay/{trainingDayId}")
     public void updateTrainingDay(@PathVariable(value = "trainingDayId") Long trainingDayId, @RequestBody TrainingDay newTrainingDay) {
         TrainingDay trainingDay = trainingDayRepository.findById(trainingDayId).get();
+        checkTrainingDay(newTrainingDay);
 
         trainingDay.setType(newTrainingDay.getType());
         trainingDay.setTrainingDate(newTrainingDay.getTrainingDate());
         trainingDay.setExercises(newTrainingDay.getExercises());
         trainingDayRepository.save(trainingDay);
+    }
+
+    private void checkTrainingDay(TrainingDay trainingDay) {
+        if (Objects.equals(trainingDay.getType().trim(), "")) {
+            throw new IllegalArgumentException("Exercise name can not be empty");
+        }
+        trainingDay.getExercises().forEach(exercise -> {
+            if (exercise.getName().trim().equals("")) throw new IllegalStateException("Exercise name can not be null");
+            exercise.getSets().forEach(set -> {
+                if (set.getRepetition() < 1) throw new IllegalStateException("Repetition can not be smaller then 1");
+                if (set.getWeight() < 1) throw new IllegalStateException("Weight can not be smaller then 1");
+            });
+        });
     }
 }

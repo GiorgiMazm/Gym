@@ -57,25 +57,18 @@ public class ExerciseController {
     }
 
     private void checkExercise(Exercise exercise) {
-        if (Objects.equals(exercise.getName().trim(), "")) {
+        if (Objects.equals(exercise.getName().trim(), ""))
             throw new IllegalArgumentException("Exercise name can not be empty");
 
-        }
-        if (Objects.equals(exercise.getDescription().trim(), "")) {
+        if (Objects.equals(exercise.getDescription().trim(), ""))
             throw new IllegalArgumentException("Description can not be empty");
-
-        }
-        if (Objects.equals(exercise.getDifficulty().trim(), "")) {
+        if (Objects.equals(exercise.getDifficulty().trim(), ""))
             throw new IllegalArgumentException("Difficulty name can not be empty");
 
-        }
-        if (Objects.equals(exercise.getMuscleGroup().trim(), "")) {
+        if (Objects.equals(exercise.getMuscleGroup().trim(), ""))
             throw new IllegalArgumentException("Muscle group name can not be empty");
 
-        }
-
-        if (exerciseRepository.findByName(exercise.getName()) != null) {
+        if (exerciseRepository.findByName(exercise.getName()) != null)
             throw new IllegalArgumentException("Exercise name is already taken");
-        }
     }
 }
