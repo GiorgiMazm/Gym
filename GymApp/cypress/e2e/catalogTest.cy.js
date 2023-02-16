@@ -37,6 +37,13 @@ describe("catalogPage", () => {
         cy.get("span").contains("Edit").click();
       });
 
+    cy.url().should("contain", "http://localhost:5173/catalog/edit/");
+
+    cy.get(".v-toolbar-title__placeholder").should(
+      "contain.text",
+      "Edit Exercise"
+    );
+
     const newExerciseName = "i'm brand new name baby";
     cy.get("input[name='exerciseName']").clear().type(newExerciseName);
 
@@ -64,7 +71,11 @@ describe("catalogPage", () => {
       .within(() => {
         cy.get("span").contains("Learn more").click();
       });
-
+    cy.url().should("contain", "http://localhost:5173/catalog/");
+    cy.get(".v-toolbar-title__placeholder").should(
+      "contain.text",
+      "Single Exercise"
+    );
     cy.get(".v-card-title")
       .contains("Exercise:")
       .should("contain.text", exerciseName);

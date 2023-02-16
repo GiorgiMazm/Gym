@@ -36,6 +36,11 @@ describe("recordsPage", () => {
       .within(() => {
         cy.get("button").contains("Edit").click();
       });
+    cy.url().should("contain", "http://localhost:5173/record/edit/");
+    cy.get(".v-toolbar-title__placeholder").should(
+      "contain.text",
+      "Edit Single Record"
+    );
 
     const newTrainingType = "Pull4654535";
     cy.get('input[name="recordType"').clear().type(newTrainingType);
@@ -66,6 +71,13 @@ describe("recordsPage", () => {
       .within(() => {
         cy.get("button").contains("Learn more").click();
       });
+
+    cy.url().should("contain", "http://localhost:5173/record/");
+
+    cy.get(".v-toolbar-title__placeholder").should(
+      "contain.text",
+      "Single Record"
+    );
 
     cy.get(".v-list-item-title").should("contain.text", "Exercise 1: bench");
     cy.get("button").contains("Back").click();
