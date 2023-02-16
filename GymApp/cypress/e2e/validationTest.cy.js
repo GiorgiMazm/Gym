@@ -104,3 +104,63 @@ describe("Can create a new training day if", () => {
     cy.get(".records-wrapper").should("not.contain.text", trainingType);
   });
 });
+
+describe("Can't create a new record if", () => {
+  beforeEach(() => {
+    cy.visit("records");
+  });
+
+  it("Fields are empty", () => {
+    const trainingType = "Cheeest6574857381";
+    recordFactory.create({
+      type: trainingType,
+    });
+    cy.get(".records-wrapper").should("not.contain.text", trainingType);
+    cy.get(".v-messages__message").should("contain.text", "Field is required!");
+  });
+
+  it("Repetition or weight is not a Number", () => {
+    const trainingType = "Cheeest6574857381";
+    recordFactory.create({
+      type: trainingType,
+      exercise: "bench",
+      weight: "hi",
+      repetition: "moin",
+    });
+    cy.get(".records-wrapper").should("not.contain.text", trainingType);
+    cy.get(".v-messages__message").should(
+      "contain.text",
+      "Is not a valid number bigger then 0"
+    );
+  });
+
+  it("Repetition or weight is smaller then 0", () => {
+    const trainingType = "Cheeest6574857381";
+    recordFactory.create({
+      type: trainingType,
+      exercise: "bench",
+      weight: -1,
+      repetition: -10,
+    });
+    cy.get(".records-wrapper").should("not.contain.text", trainingType);
+    cy.get(".v-messages__message").should(
+      "contain.text",
+      "Is not a valid number bigger then 0"
+    );
+  });
+
+  it("Repetition or weight starts with 0", () => {
+    const trainingType = "Cheeest6574857381";
+    recordFactory.create({
+      type: trainingType,
+      exercise: "bench",
+      weight: "01",
+      repetition: "032",
+    });
+    cy.get(".records-wrapper").should("not.contain.text", trainingType);
+    cy.get(".v-messages__message").should(
+      "contain.text",
+      "Can not start with 0"
+    );
+  });
+});
