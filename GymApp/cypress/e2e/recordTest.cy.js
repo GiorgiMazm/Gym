@@ -1,4 +1,4 @@
-import recordFactory from "./RecordFactory";
+import recordFactory from "./factories/RecordFactory";
 describe("recordsPage", () => {
   beforeEach(() => {
     cy.visit("records");

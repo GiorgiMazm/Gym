@@ -1,4 +1,4 @@
-import exerciseFactory from "./ExerciseFactory";
+import exerciseFactory from "./factories/ExerciseFactory";
 
 describe("catalogPage", () => {
   beforeEach(() => {

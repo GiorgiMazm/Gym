@@ -1,5 +1,5 @@
-import exerciseFactory from "./ExerciseFactory";
-import recordFactory from "./RecordFactory";
+import exerciseFactory from "./factories/ExerciseFactory";
+import recordFactory from "./factories/RecordFactory";
 describe("Can't create a new exercise if", () => {
   beforeEach(() => {
     cy.visit("catalog");
