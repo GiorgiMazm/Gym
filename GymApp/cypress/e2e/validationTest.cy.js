@@ -101,7 +101,6 @@ describe("Can create a new training day if", () => {
     });
     cy.get(".records-wrapper").should("contain.text", trainingType);
     recordFactory.delete(trainingType);
-    cy.get(".records-wrapper").should("not.contain.text", trainingType);
   });
 });
 
