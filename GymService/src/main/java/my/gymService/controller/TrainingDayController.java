@@ -51,7 +51,7 @@ public class TrainingDayController {
 
     private void checkTrainingDay(TrainingDay trainingDay) {
         if (Objects.equals(trainingDay.getType().trim(), "")) {
-            throw new IllegalArgumentException("Exercise name can not be empty");
+            throw new IllegalArgumentException("Exercise type can not be empty");
         }
         trainingDay.getExercises().forEach(exercise -> {
             if (exercise.getName().trim().equals("")) throw new IllegalStateException("Exercise name can not be null");

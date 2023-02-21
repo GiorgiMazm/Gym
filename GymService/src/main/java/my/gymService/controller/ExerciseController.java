@@ -3,7 +3,9 @@ package my.gymService.controller;
 import lombok.extern.slf4j.Slf4j;
 import my.gymService.model.Exercise;
 import my.gymService.repository.ExerciseRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
@@ -58,17 +60,17 @@ public class ExerciseController {
 
     private void checkExercise(Exercise exercise) {
         if (Objects.equals(exercise.getName().trim(), ""))
-            throw new IllegalArgumentException("Exercise name can not be empty");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Exercise name can not be empty");
 
         if (Objects.equals(exercise.getDescription().trim(), ""))
-            throw new IllegalArgumentException("Description can not be empty");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Description can not be empty");
         if (Objects.equals(exercise.getDifficulty().trim(), ""))
-            throw new IllegalArgumentException("Difficulty name can not be empty");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Difficulty name can not be empty");
 
         if (Objects.equals(exercise.getMuscleGroup().trim(), ""))
-            throw new IllegalArgumentException("Muscle group name can not be empty");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Muscle group name can not be empty");
 
         if (exerciseRepository.findByName(exercise.getName()) != null)
-            throw new IllegalArgumentException("Exercise name is already taken");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Exercise name is already taken");
     }
 }
