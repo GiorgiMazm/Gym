@@ -59,16 +59,16 @@ public class ExerciseController {
     }
 
     private void checkExercise(Exercise exercise) {
-        if (Objects.equals(exercise.getName().trim(), ""))
+        if (exercise.getName() == null || Objects.equals(exercise.getName().trim(), ""))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Exercise name can not be empty");
 
-        if (Objects.equals(exercise.getDescription().trim(), ""))
+        if (exercise.getDescription() == null || Objects.equals(exercise.getDescription().trim(), ""))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Description can not be empty");
-        if (Objects.equals(exercise.getDifficulty().trim(), ""))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Difficulty name can not be empty");
+        if (exercise.getDifficulty() == null || Objects.equals(exercise.getDifficulty().trim(), ""))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Difficulty can not be empty");
 
-        if (Objects.equals(exercise.getMuscleGroup().trim(), ""))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Muscle group name can not be empty");
+        if (exercise.getMuscleGroup() == null || Objects.equals(exercise.getMuscleGroup().trim(), ""))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Muscle group can not be empty");
 
         if (exerciseRepository.findByName(exercise.getName()) != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Exercise name is already taken");

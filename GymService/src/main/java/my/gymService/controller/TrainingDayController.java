@@ -2,7 +2,9 @@ package my.gymService.controller;
 
 import my.gymService.model.TrainingDay;
 import my.gymService.repository.TrainingDayRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +14,7 @@ import java.util.Optional;
 @RequestMapping
 public class TrainingDayController {
     TrainingDayRepository trainingDayRepository;
+
 
     public TrainingDayController(TrainingDayRepository trainingDayRepository) {
         this.trainingDayRepository = trainingDayRepository;
@@ -50,14 +53,21 @@ public class TrainingDayController {
     }
 
     private void checkTrainingDay(TrainingDay trainingDay) {
-        if (Objects.equals(trainingDay.getType().trim(), "")) {
-            throw new IllegalArgumentException("Exercise type can not be empty");
+        if (trainingDay.getType() == null || Objects.equals(trainingDay.getType().trim(), "")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Exercise type can not be empty");
         }
+        if (trainingDay.getTrainingDate() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Training Date can not be empty");
+        }
+
         trainingDay.getExercises().forEach(exercise -> {
-            if (exercise.getName().trim().equals("")) throw new IllegalStateException("Exercise name can not be null");
+            if (exercise.getName() == null || exercise.getName().trim().equals(""))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Exercise name can not be empty");
             exercise.getSets().forEach(set -> {
-                if (set.getRepetition() < 1) throw new IllegalStateException("Repetition can not be smaller then 1");
-                if (set.getWeight() < 1) throw new IllegalStateException("Weight can not be smaller then 1");
+                if (set.getRepetition() < 1)
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Repetition can not be smaller then 1");
+                if (set.getWeight() < 1)
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Weight can not be smaller then 1");
             });
         });
     }
